@@ -1,5 +1,19 @@
 services:
 
+  frontend:
+    image: nginx:stable-bookworm
+    container_name: nginx
+    restart: always
+    ports:
+      - '80'
+      - '443:443'
+    volumes:
+      - ./frontend/volume:/app
+    networks:
+      - transcendance
+    depends_on:
+      - vault
+    
   nginx:
     image: nginx:stable-bookworm
     container_name: nginx
@@ -8,7 +22,7 @@ services:
       - '80'
       - '443:443'
     volumes:
-      - ./requirements/apache/volume:/app
+      - ./frontend/volume:/app
     networks:
       - transcendance
     depends_on:
