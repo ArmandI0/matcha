@@ -3,10 +3,7 @@ import { useState } from "react";
 function App() {
   // state
   const [compteur, setCompteur] = useState(1);
-  // comportement
-  const kaka = () => {
-    alert("blabla");
-  };
+  
   //affichage
   return(
     <div>
