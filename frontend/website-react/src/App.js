@@ -1,4 +1,8 @@
 import { useState } from "react";
+import Button from '@mui/material/Button';
+import InputField from "./components/InputField.js/InputField";
+
+import Home from "./pages/register/Home";
 
 function App() {
   // state
@@ -7,8 +11,10 @@ function App() {
   //affichage
   return(
     <div>
+      <InputField>blabla</InputField>
       <h1>{compteur}</h1>
-      <button onClick={kaka}>Increment</button>
+      <Button variant="contained" color="success">Increment</Button>
+      <Home>home</Home>
     </div>
   );
 }

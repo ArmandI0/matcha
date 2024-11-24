@@ -1,0 +1,12 @@
+.registerForm{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    text-align: center;       /* Centrer le texte du titre */
+    margin-bottom: 20px;      /* Espacement sous le titre */
+}
