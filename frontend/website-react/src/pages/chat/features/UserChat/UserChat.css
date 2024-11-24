@@ -1,0 +1,7 @@
+.chat-window {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}

@@ -1,0 +1,5 @@
+.users-list {
+    width: 25%;
+    overflow-y: auto;
+    padding: 10px;
+}

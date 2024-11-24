@@ -1,0 +1,73 @@
+.message-component {
+    background-color: #f7f6f6;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.message-header {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.messages {
+    flex-grow: 1;
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+.message {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.message.sent {
+    justify-content: flex-end;
+}
+
+.message .message-text {
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    max-width: 70%;
+}
+
+.message.sent .message-text {
+    background-color: #7ebaff;
+    align-self: flex-end;
+}
+
+.message.received .message-text {
+    background-color: white;
+    align-self: flex-start;
+}
+
+.message-input {
+    display: flex;
+    gap: 10px;
+}
+
+.message-input input {
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.message-input button {
+    padding: 10px 20px;
+    background-color: #397eff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.message-input button:hover {
+    background-color: #397eff;
+}
