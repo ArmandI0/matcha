@@ -1,0 +1,13 @@
+.chat-component {
+    display: flex;
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+
+}
+
+.users-list {
+    width: 300px;
+    border-right: 1px solid #ddd;
+    overflow-y: auto;
+}
+
