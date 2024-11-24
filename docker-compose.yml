@@ -2,6 +2,7 @@ services:
 
   frontend-nginx:
     build: frontend/.
+    container_name: frontend
     restart: always
     ports:
       - '80:80'
@@ -11,19 +12,28 @@ services:
     networks:
       - matcha
 
+  backend-express:
+    build: backend/.
+    container_name: backend
+    restart: always
+    volumes:
+      - ./backend/backend-express:/app
+    networks:
+      - matcha
+    ports:
+      - "3050:3000"
+
   adminer:
-    image: adminer:standalone
+    image: adminer:latest
     container_name: adminer
     restart: always
     ports:
       - '8080'
     networks:
       - matcha
-    depends_on: 
-      - vault
 
   postgres_data:
-    image : postgres:12-bookworm
+    image : postgres:latest
     container_name: postgres
     restart: always
     ports:
