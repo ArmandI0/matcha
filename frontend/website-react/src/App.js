@@ -4,7 +4,7 @@ import Home from "./pages/register/Home";
 function App() {
   return(
     <div>
-      <Chat></Chat>
+      <Home>home</Home>
     </div>
   );
 }

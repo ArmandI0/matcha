@@ -1,5 +1,6 @@
 start:
 	docker-compose up --build
+	echo "https://localhost"
 
 stop:
 	docker-compose stop
