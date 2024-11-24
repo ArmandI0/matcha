@@ -11,9 +11,6 @@ function App() {
   //affichage
   return(
     <div>
-      <InputField>blabla</InputField>
-      <h1>{compteur}</h1>
-      <Button variant="contained" color="success">Increment</Button>
       <Home>home</Home>
     </div>
   );
