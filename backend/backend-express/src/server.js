@@ -13,19 +13,23 @@ app.use(express.json());
 console.log('Toutes les vars:', process.env);
 console.log(process.env.DB_USER);
 
+const db = require('./config/database.js');
+
 // Configuration DBQL
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT
-}); 
+// const pool = new Pool({
+//   user: process.env.DB_USER,
+//   host: process.env.DB_HOST,
+//   database: process.env.DB_NAME,
+//   password: process.env.DB_PASSWORD,
+//   port: process.env.DB_PORT
+// }); 
+
+
 
 // Route exemple
 app.get('/api/test', async (req, res) => {
   try {
-    const result = await pool.query('SELECT NOW()');
+    const result = await db.query('SELECT NOW()');
     res.json({ message: "Connexion réussie", timestamp: result.rows[0].now });
   } catch (err) {
     res.status(500).json({ error: err.message });
