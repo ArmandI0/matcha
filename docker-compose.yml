@@ -20,8 +20,10 @@ services:
       - ./backend/backend-express:/app
     networks:
       - matcha
+    env_file:
+      - .env
     ports:
-      - "3050:3000"
+      - "3050:5000"
 
   adminer:
     image: adminer:latest
@@ -32,7 +34,7 @@ services:
     networks:
       - matcha
 
-  postgres_data:
+  database:
     image : postgres:latest
     container_name: postgres
     restart: always
