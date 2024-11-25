@@ -27,6 +27,7 @@
 }
 
 .message.sent {
+    color: white;
     justify-content: flex-end;
 }
 
@@ -38,7 +39,7 @@
 }
 
 .message.sent .message-text {
-    background-color: #7ebaff;
+    background-color: var(--secondary-color);
     align-self: flex-end;
 }
 
@@ -61,7 +62,7 @@
 
 .message-input button {
     padding: 10px 20px;
-    background-color: #397eff;
+    background-color: var(--primary-color);
     color: white;
     border: none;
     border-radius: 5px;
@@ -69,5 +70,5 @@
 }
 
 .message-input button:hover {
-    background-color: #397eff;
+    background-color: var(--accent-color);
 }

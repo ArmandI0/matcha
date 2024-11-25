@@ -18,7 +18,7 @@ function Message({ user }) {
     return (
         <div className="message-component">
             <div className="message-header">
-                <h2>Machatter avec {user.name}</h2>
+                <h2>MatChatter avec {user.name}</h2>
             </div>
             <div className="messages">
                 {messages.map((msg, index) => (

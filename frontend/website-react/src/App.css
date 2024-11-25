@@ -1,4 +1,6 @@
 /* App.css */
+@import './assets/variables.css';
+
 .app {
   min-height: 100vh;
   display: flex;
