@@ -1,0 +1,33 @@
+.MuiAppBar-root {
+    background-color: #ffffff !important;
+  }
+
+.MuiAppBar-root{
+    color: #fe3c72;
+}
+
+.MuiAppBar-root .MuiTypography-root,
+.MuiAppBar-root .MuiInputBase-root {
+  color:  	#fe3c72;
+}
+
+.MuiIconButton-root .MuiSvgIcon-root {
+    color: #fe3c72;
+}
+
+/* Pour les badges de notification */
+.MuiBadge-badge {
+    background-color: #66ff00; /* ou la couleur de votre choix */
+}
+
+.MuiMenu-paper {
+    background-color: #ffffff !important;
+}
+
+.MuiMenuItem-root {
+ color: #ff0000 !important;
+}
+
+.MuiMenuItem-root:hover {
+ background-color: #0026ff !important;
+}
