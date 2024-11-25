@@ -5,7 +5,7 @@ import ButtonLink from "../../components/Button/ButtonLink";
 import { useState } from "react";
 
 function LoginForm() {
-  const [form, setForm] = useState('login');
+  const [form, setForm] = useState('register');
 
   const changeForm = () => {
     if (form === 'login')

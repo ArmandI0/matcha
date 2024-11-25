@@ -2,6 +2,8 @@ import { useState } from "react";
 import RegisterForm from "../../features/login/LoginForm";
 import LoginForm from "../../features/login/LoginForm";
 import PrimarySearchAppBar from "../../features/NavBar/NavBar";
+import './Home.css';
+
 function Home() {
     
     // Veriier si connecter
@@ -17,7 +19,7 @@ function Home() {
     {
         return (
             <div>
-                <PrimarySearchAppBar></PrimarySearchAppBar>
+                <p>COUCOUC EMILE MON POTE</p>
             </div>
         ); 
     }
