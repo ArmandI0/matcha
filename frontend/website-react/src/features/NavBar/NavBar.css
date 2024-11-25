@@ -1,0 +1,32 @@
+.MuiAppBar-root {
+    background-color: var(--background-color) !important;
+  }
+
+.MuiAppBar-root{
+    color: var(--primary-color);
+}
+
+.MuiAppBar-root .MuiTypography-root,
+.MuiAppBar-root .MuiInputBase-root {
+  color:  	var(--primary-color);
+}
+
+.MuiIconButton-root .MuiSvgIcon-root {
+    color: var(--primary-color);
+}
+
+.MuiBadge-badge {
+    background-color: var(--secondary-color);
+}
+
+.MuiMenu-paper {
+    background-color: var(--background-color) !important;
+}
+
+.MuiMenuItem-root {
+ color: var(--secondary-color) !important;
+}
+
+.MuiMenuItem-root:hover {
+ background-color: var(--accents-color) !important;
+}
