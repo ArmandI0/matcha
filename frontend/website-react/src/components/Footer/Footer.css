@@ -1,0 +1,10 @@
+footer {
+    background-color: #333; /* Couleur de fond */
+    height: 50px;           /* Hauteur du footer */
+    width: 110wh;            /* Occupe toute la largeur */
+    display: flex;
+    align-items: center;    /* Centre verticalement le contenu */
+    justify-content: center;/* Centre horizontalement le contenu */
+    color: #fff;            /* Couleur du texte */
+    margin-bottom: auto;
+  }

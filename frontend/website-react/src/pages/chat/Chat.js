@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Chat.css';
 import UsersList from './features/UsersList/UsersList';
 import UserChat from './features/UserChat/UserChat';
+import PrimarySearchAppBar from '../../features/NavBar/NavBar';
 
 function Chat() {
     const [selectedUser, setSelectedUser] = useState(null);
@@ -19,10 +20,10 @@ function Chat() {
     };
 
     return (
-        <div className="chat-component">
-            <UsersList users={users} onUserClick={handleUserClick} />
-            <UserChat selectedUser={selectedUser} />
-        </div>
+            <div className="chat-component">
+                <UsersList users={users} onUserClick={handleUserClick} />
+                <UserChat selectedUser={selectedUser} />
+            </div>
     );
 }
 
