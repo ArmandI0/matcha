@@ -14,8 +14,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import './NavBar.css'
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate, Link } from 'react-router-dom'; // Ajout de Link pour la navigation
 
 export default function PrimarySearchAppBar() {
   const navigate = useNavigate();
@@ -88,7 +87,7 @@ export default function PrimarySearchAppBar() {
     >
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit" >
-          <Badge badgeContent={4} color="error">
+          <Badge badgeContent={0}>
             <MailIcon />
           </Badge>
         </IconButton>
@@ -100,7 +99,7 @@ export default function PrimarySearchAppBar() {
           aria-label="show 17 new notifications"
           color="inherit"
         >
-          <Badge badgeContent={17} color="error">
+          <Badge badgeContent={0}>
             <NotificationsIcon />
           </Badge>
         </IconButton>
@@ -134,24 +133,26 @@ export default function PrimarySearchAppBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-          variant="6"
-          noWrap
-          component="div"
-          sx={{ 
-            display: { xs: 'none', sm: 'block' },
-            fontFamily: 'Gotham-Medium, sans-serif',
-            fontSize: '24px',
-            fontWeight: 700,
-            color: '#9290C3'
-          }}
-          >
-            MATCHA
-          </Typography>
+          <Link to="/" style={{ textDecoration: 'none' }}> {}
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ 
+                display: { xs: 'none', sm: 'block' },
+                fontFamily: 'Gotham-Medium, sans-serif',
+                fontSize: '24px',
+                fontWeight: 700,
+                color: '#9290C3'
+              }}
+            >
+              MATCHA
+            </Typography>
+          </Link>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={handleMailClick}>
-              <Badge badgeContent={4} color="error">
+              <Badge badgeContent={0 /*BRUT MAIL*/}>
                 <MailIcon />
               </Badge>
             </IconButton>
@@ -160,7 +161,7 @@ export default function PrimarySearchAppBar() {
               aria-label="show 17 new notifications"
               color="inherit"
             >
-              <Badge badgeContent={17} color="error">
+              <Badge badgeContent={1 /*BRUT NOTIF*/}>
                 <NotificationsIcon />
               </Badge>
             </IconButton>
