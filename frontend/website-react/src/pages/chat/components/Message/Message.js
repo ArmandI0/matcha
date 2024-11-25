@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Message.css';
 
 function Message({ user }) {
@@ -7,6 +7,18 @@ function Message({ user }) {
         { sender: "Moi", text: "Bien et toi ?" },
     ]);
     const [newMessage, setNewMessage] = useState("");
+    const [serverMessage, setServerMessage] = useState("");
+
+    useEffect(() => {
+        fetch(' ')
+            .then((response) => response.json())
+            .then((data) => {
+                setServerMessage(data.message);
+            })
+            .catch((error) => {
+                console.error("Erreur lors de la récupération des données : ", error);
+            });
+    }, []);
 
     const handleSendMessage = () => {
         if (newMessage.trim()) {
@@ -19,6 +31,7 @@ function Message({ user }) {
         <div className="message-component">
             <div className="message-header">
                 <h2>MatChatter avec {user.name}</h2>
+                {serverMessage && <p>{serverMessage}</p>}  {}
             </div>
             <div className="messages">
                 {messages.map((msg, index) => (
@@ -34,7 +47,7 @@ function Message({ user }) {
                     onChange={(e) => setNewMessage(e.target.value)}
                     placeholder="Message..."
                 />
-                <button onClick={handleSendMessage}><i class="fa-solid fa-arrow-up"></i></button>
+                <button onClick={handleSendMessage}><i className="fa-solid fa-arrow-up"></i></button>
             </div>
         </div>
     );
