@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "migrate": "node-pg-migrate",
     "start": "node ./src/server.js"
   },
   "dependencies": {
@@ -14,6 +15,7 @@
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "morgan": "~1.9.1",
+    "node-pg-migrate": "^7.8.0",
     "pg": "^8.13.1",
     "ws": "^8.18.0"
   }
