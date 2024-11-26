@@ -1,14 +1,25 @@
-start:
-	docker-compose up --build
+DEV_COMPOSE = docker compose -f docker-compose.dev.yml
+PROD_COMPOSE = docker compose
+
+default: dev
+
+dev:
+	$(DEV_COMPOSE) up
+	echo "http://localhost:3000"
+
+dev-build:
+	$(DEV_COMPOSE) up --build
+	echo "http://localhost:3000"
+
+prod:
+	$(PROD_COMPOSE) up --build
 	echo "https://localhost"
 
 stop:
-	docker-compose stop
+	$(DEV_COMPOSE) stop
 
-restart: stop start
-
-build:
-	docker-compose build
+stop-prod:
+	$(PROD_COMPOSE) stop
 
 clean: stop
 	docker system prune -af
@@ -23,4 +34,8 @@ status:
 	@echo "\n"
 	docker network ls
 
-re:	stop clean start
+re: stop clean dev-build
+
+re-prod: stop-prod clean prod
+
+.PHONY: default dev dev-build prod stop stop-prod clean status re re-prod

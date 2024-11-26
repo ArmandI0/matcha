@@ -1,0 +1,6 @@
+{
+    "dev": {
+      "driver": "pg",
+        "connectionString": "postgres://mydatabaseuser:mypassword@database:5432/mydatabase"
+    }
+  }
