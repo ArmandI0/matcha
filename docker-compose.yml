@@ -1,18 +1,16 @@
 services:
 
-  frontend-nginx:
+  frontend:
     build: frontend/.
     container_name: frontend
     restart: always
     ports:
       - '80:80'
       - '443:443'
-    volumes:
-      - ./frontend/website-react:/var/www
     networks:
       - matcha
 
-  backend-express:
+  backend:
     build: backend/.
     container_name: backend
     restart: always

@@ -1,0 +1,19 @@
+# backend/Dockerfile.dev
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Installe nodemon globalement pour le hot reload
+RUN npm install -g nodemon
+
+# Copie package.json et package-lock.json
+COPY backend-express/package*.json ./
+
+# Installe les dépendances
+RUN npm install
+
+# Le code source sera monté en volume
+# Pas besoin de COPY ici
+
+# Command pour lancer avec nodemon
+CMD ["nodemon", "server.js"]

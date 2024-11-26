@@ -1,0 +1,73 @@
+services:
+  frontend:
+    build: 
+      context: frontend/
+      dockerfile: Dockerfile.dev
+    container_name: frontend-dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/website-react:/app
+      # Protège node_modules du container
+      - /app/node_modules
+    environment:
+      - WATCHPACK_POLLING=true  # Pour le hot reload dans Docker
+      - CHOKIDAR_USEPOLLING=true  # Aussi pour le hot reload
+      - REACT_APP_SOCKET_URL=http://localhost:5000
+    stdin_open: true  # Pour le terminal interactif de React
+    tty: true        # Pour le terminal interactif de React
+    networks:
+      - matcha
+
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile.dev  # On utilise un Dockerfile spécial pour le dev
+    container_name: backend-dev
+    restart: always
+    volumes:
+      - ./backend/backend-express:/app
+      - /app/node_modules      # Même principe que pour le frontend
+    networks:
+      - matcha
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=development
+      - CORS_ORIGIN=http://localhost:3000  # Pour autoriser le frontend en dev
+    ports:
+      - "5000:5000"
+    command: npm run dev
+
+  adminer:
+    image: adminer:latest
+    container_name: adminer
+    restart: always
+    ports:
+      - '8080:8080'
+    networks:
+      - matcha
+
+  database:
+    image : postgres:latest
+    container_name: postgres
+    restart: always
+    ports:
+      - '5432'
+    env_file:
+      - .env
+    networks:
+      - matcha
+
+volumes:
+  postgres_data:
+      name : postgres_data
+      driver: local
+      driver_opts:
+          type: 'none'
+          o: 'bind'
+          device: '../postgres_data/'
+
+networks:
+  matcha:
+    driver: bridge
