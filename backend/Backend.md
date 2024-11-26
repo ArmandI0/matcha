@@ -145,3 +145,10 @@ Cette API inclut plusieurs couches de sécurité :
 
 - `npm start`: Lance le serveur en mode production
 - `npm run dev`: Lance le serveur en mode développement avec nodemon
+
+## Create table 
+
+```
+  npm run migrate create user
+  npm run migrate up
+```
