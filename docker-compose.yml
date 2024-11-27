@@ -21,7 +21,7 @@ services:
     env_file:
       - .env
     ports:
-      - "3050:5000"
+      - "5000:5000"
 
   adminer:
     image: adminer:latest
@@ -40,18 +40,15 @@ services:
       - '5432'
     env_file:
       - .env
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      # Volume persistant pour les données
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - matcha
 
 volumes:
   postgres_data:
-      name : postgres_data
-      driver: local
-      driver_opts:
-          type: 'none'
-          o: 'bind'
-          device: '../postgres_data/'
-
 
 networks:
   matcha:
