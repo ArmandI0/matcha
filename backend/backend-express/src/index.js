@@ -18,6 +18,17 @@ async function checkDatabaseConnection() {
     return false;
   }
 }
+// chat
+
+const chatRoute = require('./routes/chatRoute');  // Importer le fichier de routes
+
+// Associer le fichier de routes à un chemin spécifique
+app.use('/api/chat', chatRoute);  // Déclare le chemin API qui utilise ce contrôleur
+
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
+});
+
 
 // Démarrage du serveur avec vérification de la DB
 const PORT = process.env.PORT || 3000;
