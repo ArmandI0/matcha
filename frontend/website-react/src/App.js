@@ -13,7 +13,7 @@ function App() {
         <PrimarySearchAppBar></PrimarySearchAppBar>
         <div className="content">
           <Routes>
-            <Route path="/" element={<LoginForm />} />
+            <Route path="/" element={<Home />} />
             <Route path="/chat" element={<Chat />} />
           </Routes>
         </div>
