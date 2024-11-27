@@ -1,33 +1,40 @@
 const express = require('express');
 const database = require('./config/database');
-const User = require('./models/User');
+
+
 
 const app = express();
-app.use(express.json());
 
-// Routes
-app.post('/users', async (req, res) => {
+// Fonction pour vérifier la connexion à la DB
+async function checkDatabaseConnection() {
   try {
-    const user = await User.create(req.body);
-    res.json(user);
+    const client = await database.connect();
+    await client.query('SELECT NOW()');
+    client.release();
+    console.log('✅ Base de données connectée avec succès');
+    return true;
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('❌ Erreur de connexion à la base de données:', error.message);
+    return false;
   }
-});
+}
 
-app.get('/users', async (req, res) => {
-  try {
-    const users = await User.findAll();
-    res.json(users);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+// Démarrage du serveur avec vérification de la DB
+const PORT = process.env.PORT || 3000;
 
-// Démarrage
-database.sync()
-  .then(() => {
-    app.listen(5000, () => {
-      console.log('Serveur démarré sur le port 5000');
+async function startServer() {
+  const isDatabaseConnected = await checkDatabaseConnection();
+  
+  if (isDatabaseConnected) {
+    app.listen(PORT, () => {
+      console.log(`🚀 Serveur démarré sur le port ${PORT}`);
     });
-  });
+  } else {
+    console.error('🛑 Impossible de démarrer le serveur : la base de données n\'est pas accessible');
+    process.exit(1);
+  }
+}
+
+startServer();
+
+module.exports = app;

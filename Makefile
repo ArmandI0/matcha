@@ -36,6 +36,17 @@ status:
 
 re: stop clean dev-build
 
+restart-service:
+	@if [ -z "$(SERVICE)" ] || [ -z "$(VOLUME)" ]; then \
+		echo "Usage: make restart-service SERVICE=nom_du_service VOLUME=nom_du_volume"; \
+		echo "Example: make restart-service SERVICE=postgres VOLUME=matcha_postgres_data"; \
+		exit 1; \
+	fi
+	docker compose -f docker-compose.dev.yml stop $(SERVICE)
+	docker compose -f docker-compose.dev.yml rm -f $(SERVICE)
+	docker volume rm $(VOLUME) || true
+	docker compose -f docker-compose.dev.yml up -d $(SERVICE)
+
 re-prod: stop-prod clean prod
 
 .PHONY: default dev dev-build prod stop stop-prod clean status re re-prod
