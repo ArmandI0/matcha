@@ -1,58 +1,62 @@
-CREATE TABLE Users (
+CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    Username VARCHAR(100) UNIQUE,
-    Email VARCHAR(255),
-    Password VARCHAR(255)
+    username VARCHAR(100) UNIQUE,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL
 );
 
-
-CREATE TABLE ListOfInterest (
+CREATE TABLE interests (
     id SERIAL PRIMARY KEY,
-    Interest0 VARCHAR(100),
-    Interest1 VARCHAR(100),
-    Interest2 VARCHAR(100),
-    Interest3 VARCHAR(100),
-    Interest4 VARCHAR(100)
+    interest_0 VARCHAR(100),
+    interest_1 VARCHAR(100),
+    interest_2 VARCHAR(100),
+    interest_3 VARCHAR(100),
+    interest_4 VARCHAR(100)
 );
 
-CREATE TABLE Pictures (
+CREATE TABLE pictures (
     id SERIAL PRIMARY KEY,
-    Pictures0 VARCHAR(100),
-    Pictures1 VARCHAR(100),
-    Pictures2 VARCHAR(100),
-    Pictures3 VARCHAR(100),
-    Pictures4 VARCHAR(100)
+    picture_0 VARCHAR(100),
+    picture_1 VARCHAR(100),
+    picture_2 VARCHAR(100),
+    picture_3 VARCHAR(100),
+    picture_4 VARCHAR(100)
 );
 
-CREATE TABLE UsersProfile (
+CREATE TABLE user_profiles (
     id SERIAL PRIMARY KEY,
-    Lastname  VARCHAR(100),
-    Firstname  VARCHAR(100),
-    Username VARCHAR(100),
-    FOREIGN KEY (Username) REFERENCES Users(Username),
-    Gender VARCHAR(100),
-    SexualPreferences VARCHAR(255),
-    Biography VARCHAR(100),
-    ListOfInterest INTEGER REFERENCES ListOfInterest(id),
-    Pictures INTEGER REFERENCES Pictures(id),
-    FamousRating INTEGER,
-    Location VARCHAR(255)
+    user_id INTEGER NOT NULL REFERENCES users(id),
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
+    gender VARCHAR(50),
+    sexual_preferences VARCHAR(255),
+    biography VARCHAR(255),
+    interests_id INTEGER REFERENCES interests(id),
+    pictures_id INTEGER REFERENCES pictures(id),
+    fame_rating INTEGER DEFAULT 0,
+    location VARCHAR(255)
 );
 
-CREATE TABLE ProfileViews (
+CREATE TABLE profile_views (
     id SERIAL PRIMARY KEY,
-    ViewedProfile INTEGER REFERENCES UsersProfile(id),
-    ViewerProfile VARCHAR(100) REFERENCES Users(Username),
-    ViewDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE(ViewedProfile, ViewerProfile)
-    --Update view in case of review
+    viewed_profile_id INTEGER NOT NULL REFERENCES user_profiles(id),
+    viewer_user_id INTEGER NOT NULL REFERENCES users(id),
+    view_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(viewed_profile_id, viewer_user_id)
 );
 
-CREATE TABLE LikedProfile (
+CREATE TABLE liked_profiles (
     id SERIAL PRIMARY KEY,
-    LikedProfile INTEGER REFERENCES UsersProfile(id),
-    SenderProfile VARCHAR(100) REFERENCES Users(Username),
-    ViewDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE(LikedProfile, SenderProfile)
-    --Update view in case of review
+    liked_profile_id INTEGER NOT NULL REFERENCES user_profiles(id),
+    sender_user_id INTEGER NOT NULL REFERENCES users(id),
+    like_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(liked_profile_id, sender_user_id)
+);
+
+CREATE TABLE private_messages (
+    id SERIAL PRIMARY KEY,
+    sender_user_id INTEGER NOT NULL REFERENCES users(id),
+    receiver_user_id INTEGER NOT NULL REFERENCES users(id),
+    message TEXT NOT NULL,
+    sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
