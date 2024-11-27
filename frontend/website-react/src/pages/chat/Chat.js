@@ -10,7 +10,7 @@ function Chat() {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch('/api/chat/recent-conversations');
+                const response = await fetch('/api/chat/get-users-list');
                 const data = await response.json();
                 console.log(data)
                 setUsers(data);

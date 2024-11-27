@@ -20,10 +20,10 @@ async function checkDatabaseConnection() {
 }
 // chat
 
-const chatRoute = require('./routes/chatRoute');  // Importer le fichier de routes
+const chatRoute = require('./routes/chatRoute');
 
-// Associer le fichier de routes à un chemin spécifique
-app.use('/api/chat', chatRoute);  // Déclare le chemin API qui utilise ce contrôleur
+app.use(express.json());
+app.use('/api/chat', chatRoute); 
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
