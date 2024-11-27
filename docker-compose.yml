@@ -21,7 +21,7 @@ services:
     env_file:
       - .env
     ports:
-      - "3050:5000"
+      - "5000:5000"
 
   adminer:
     image: adminer:latest
