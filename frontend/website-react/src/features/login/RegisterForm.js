@@ -23,7 +23,7 @@ export default function RegisterForm() {
     firstName: ''
   });
 
-  const checkForm = (e) => {
+  const checkForm = async (e) => {
     e.preventDefault();
     const validator = {
       username: checkData.validateUsername,
@@ -43,6 +43,15 @@ export default function RegisterForm() {
     if (newErrors[param] ===   '')
       error = true;
     };
+
+    // if (error === false) {
+    //   try {
+    //     const response = await fetch()
+    //   }
+    //   catch {
+
+    //   }
+    // }
     
     setErrors(newErrors);
     console.log('ERROR ==');
