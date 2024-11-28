@@ -4,7 +4,7 @@ const database = require('./config/database');
 
 
 const app = express();
-
+app.use(express.json()); // Fonction pour recuperer les POST mais si tu le met a la compilation le back demarre pas 
 // Fonction pour vérifier la connexion à la DB
 async function checkDatabaseConnection() {
   try {
@@ -18,16 +18,14 @@ async function checkDatabaseConnection() {
     return false;
   }
 }
-// chat
-
+// cha
 const chatRoute = require('./routes/chatRoute');
 
-app.use(express.json());
 app.use('/api/chat', chatRoute); 
 
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
-});
+// app.listen(3000, () => {
+//   console.log('Server is running on port 3000');
+// });
 
 
 // Démarrage du serveur avec vérification de la DB

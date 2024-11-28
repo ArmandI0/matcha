@@ -37,7 +37,10 @@ services:
       - CORS_ORIGIN=http://localhost:3000  # Pour autoriser le frontend en dev
     ports:
       - "5000:5000"
-    command: npm run dev
+    depends_on:
+      - database
+    command: >
+      sh -c "sleep 8 && npm run dev"
 
   adminer:
     image: adminer:latest
