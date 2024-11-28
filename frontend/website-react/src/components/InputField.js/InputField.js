@@ -11,9 +11,12 @@ function InputField(props) {
           <TextField
             id="outlined-basic"
             label={props.nameField}
+            type={props.type}
             variant="outlined"
-            value={props.value}         // Ajoutez ces
-            onChange={props.onChange}   // deux lignes
+            value={props.value}
+            onChange={props.onChange}
+            error={Boolean(props.error)}
+            helperText={props.error}
           />
         </Box>
     );
