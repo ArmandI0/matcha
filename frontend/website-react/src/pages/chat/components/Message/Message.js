@@ -8,7 +8,7 @@ function Message({ messages, currentUserId }) {
                 {messages.map((msg, index) => (
                     <div
                         key={index}
-                        className={`message ${msg.sender_user_id === currentUserId ? 'sent' : 'received'}`}
+                        className={`message ${msg.sender.id === currentUserId ? 'sent' : 'received'}`}
                     >
                         <div className="message-text">{msg.message}</div>
                     </div>

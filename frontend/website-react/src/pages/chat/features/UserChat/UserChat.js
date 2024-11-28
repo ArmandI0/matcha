@@ -15,7 +15,7 @@ function UserChat({ selectedUser }) {
                     if (response.ok) {
                         const data = await response.json();
                         console.log(data);
-                        setMessages(data);
+                        setMessages(data.messages);
                     } else {
                         console.error('Erreur lors de la récupération des messages');
                     }
@@ -31,22 +31,23 @@ function UserChat({ selectedUser }) {
     const handleSendMessage = async () => {
         if (newMessage.trim()) {
             const messageData = {
-                sender_user_id: currentUserId,
-                receiver_user_id: selectedUser.user_id,
-                message: newMessage
+                sender_user_id: {id: currentUserId, username: 'user1'},  // HARDCODE APRES AUTH C BON
+                receiver_user_id: selectedUser.user_id,  // Utilisation de l'ID de l'utilisateur sélectionné
+                message: newMessage,
             };
-
+    
             try {
                 const response = await fetch('/api/chat/send-message', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(messageData),
+                    body: JSON.stringify(messageData),  // Envoie les données dans le bon format
                 });
-
+    
                 if (response.ok) {
                     const sentMessage = await response.json();
+                    console.log("test = ", sentMessage);
                     setMessages([...messages, sentMessage]);
                     setNewMessage('');
                 } else {
@@ -57,6 +58,8 @@ function UserChat({ selectedUser }) {
             }
         }
     };
+    
+    
 
     return (
         <div className="chat-window">
