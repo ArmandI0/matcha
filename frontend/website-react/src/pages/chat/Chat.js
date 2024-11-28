@@ -1,29 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Chat.css';
 import UsersList from './features/UsersList/UsersList';
 import UserChat from './features/UserChat/UserChat';
-import PrimarySearchAppBar from '../../features/NavBar/NavBar';
 
 function Chat() {
     const [selectedUser, setSelectedUser] = useState(null);
+    const [users, setUsers] = useState([]);
 
-    const users = [
-        { name: "Benoit", lastMessage: "Je ne suis pas là", date: "Today: 17:50" },
-        { name: "Armand", lastMessage: "Arrête de dire que je suis aigri", date: "Today: 16:30" },
-        { name: "Dorian", lastMessage: "J'adore le grappling", date: "Today: 14:50" },
-        { name: "Heliam", lastMessage: "Contacte mon manager : chatgpt.com", date: "Today: 12:00" },
-        { name: "Emile", lastMessage: "Black ops 6", date: "Today: 11:00" },
-    ];
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const response = await fetch('/api/chat/get-users-list');
+                const data = await response.json();
+                console.log(data)
+                setUsers(data);
+            } catch (error) {
+                console.error('Erreur de récupération des utilisateurs:', error);
+            }
+        };
+
+        fetchUsers();
+    }, []);
 
     const handleUserClick = (user) => {
         setSelectedUser(user);
     };
 
     return (
-            <div className="chat-component">
-                <UsersList users={users} onUserClick={handleUserClick} />
-                <UserChat selectedUser={selectedUser} />
-            </div>
+        <div className="chat-component">
+            <UsersList users={users} onUserClick={handleUserClick} />
+            <UserChat selectedUser={selectedUser} />
+        </div>
     );
 }
 
