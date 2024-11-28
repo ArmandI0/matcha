@@ -23,7 +23,7 @@ function UsersList({ users, onUserClick }) {
                     key={index}
                     name={user.username}
                     lastMessage={user.last_message}
-                    date={formatDate(user.last_sent_at)}
+                    date={formatDate(user.last_activity)}
                     onClick={() => onUserClick(user)}
                 />
             ))}
