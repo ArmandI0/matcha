@@ -1,5 +1,7 @@
 
+
 import db from '../config/database.js';
+
 
 // Récupérer les messages d'une conversation
 const getConversation = async (req, res) => {
@@ -156,8 +158,6 @@ const sendMessage = async (req, res) => {
     }
 };
 
-// module.exports = {...} => export const chat = {...}
-
 const chatController = {
     getConversation,
     getUsersList,
@@ -165,3 +165,4 @@ const chatController = {
 };
 
 export default chatController;
+

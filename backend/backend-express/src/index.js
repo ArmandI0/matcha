@@ -10,6 +10,7 @@ const app = express();
 // parse automatiquement les JSONS a reception -> (Ajoute les donnees parsees dans req.body)
 
 
+
 // Routing pour le chat
 
 app.use(express.json());
@@ -22,7 +23,6 @@ const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log('Server is running on port 3000');
 });
-
 
 // Démarrage du serveur avec vérification de la DB
 
