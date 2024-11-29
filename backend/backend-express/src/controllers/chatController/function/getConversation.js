@@ -1,38 +1,31 @@
-import db from '../../../config/database.js';
+import database from '../../../config/database.js';
+import queries  from '../queries.js';
+
+// ------------- Queries function -------------
+
+// | fetchConversation
+//      Get the conversation between two users -> fetchConversation (userId, receiverId) 
+//          @userId -> ID of the requesting user
+//          @receiverId -> ID of the user selected (in the UserList)  
+
+const fetchConversation = async (userId, receiverId) => {
+    const result = await database.query(queries.getConversation, [userId, receiverId]);
+    if (result.rows && result.rows.length > 0) {
+        return result.rows[0];
+    } else {
+        return [];
+    }
+}
+
+// ------------- Main function -------------
 
 const getConversation = async (req, res) => {
-    const userId = req.params.userId;
-    const chatUserId = req.params.chatUserId;
-
+    
     try {
-        const query = `
-            SELECT messages, last_activity
-            FROM conversations
-            WHERE (user1_id = $1 AND user2_id = $2) 
-            OR (user1_id = $2 AND user2_id = $1)
-            LIMIT 1;
-        `;
+        const userId = req.params.userId;
+        const receiverId = req.params.chatUserId;
 
-        const result = await db.query(query, [userId, chatUserId]);
-
-        if (result.rows.length === 0) {
-            return res.status(404).send('Conversation not found');
-        }
-
-        // Récupérer la conversation avec les messages et la dernière activité
-        const conversation = result.rows[0];
-
-        // Formater les messages pour ajouter `sender_user_id`
-        const messagesWithSenderId = conversation.messages.map(msg => ({
-            ...msg,
-            sender_user_id: msg.sender 
-        }));
-
-        // Retourner la conversation formatée
-        return res.status(200).json({
-            messages: messagesWithSenderId,
-            last_activity: conversation.last_activity,
-        });
+        return res.status(200).send(await fetchConversation(userId, receiverId));
     } catch (error) {
         console.error('Error fetching conversation:', error);
         return res.status(500).send('Internal Server Error');

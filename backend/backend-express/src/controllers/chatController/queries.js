@@ -14,7 +14,12 @@ const queries = {
             INSERT INTO conversations (user1_id, user2_id, messages, last_activity)
             VALUES ($1, $2, $3, CURRENT_TIMESTAMP)
         `
-    }
+    },
+    getConversation: `
+        SELECT messages, last_activity FROM conversations 
+        WHERE (user1_id = $1 AND user2_id = $2) OR (user1_id = $2 AND user2_id = $1)
+        LIMIT 1
+    `,
 };
 
 export default queries;
