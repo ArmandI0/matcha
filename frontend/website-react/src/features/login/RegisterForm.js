@@ -26,39 +26,51 @@ export default function RegisterForm() {
   const checkForm = async (e) => {
     e.preventDefault();
     const validator = {
-      username: checkData.validateUsername,
-      email: checkData.validateEmail,
-      password: checkData.validatePassword,
-      lastName: checkData.validateName,
-      firstName: checkData.validateName,
+        username: checkData.validateUsername,
+        email: checkData.validateEmail,
+        password: checkData.validatePassword,
+        lastName: checkData.validateName,
+        firstName: checkData.validateName,
     };
-
-    let   error = false;
+    let error = false;
     const newErrors = {};
-
-    for (const param in validator) {
-    const validationFct = validator[param];
-    const value = formData[param];
-    newErrors[param] = validationFct(value);
-    if (newErrors[param] ===   '')
-      error = true;
-    };
-
-    // if (error === false) {
-    //   try {
-    //     const response = await fetch()
-    //   }
-    //   catch {
-
-    //   }
-    // }
     
-    setErrors(newErrors);
+    const validateData = async () => {
+        for (const field in validator) {
+            const validationFct = validator[field];
+            const value = formData[field];
+            newErrors[field] = await validationFct(value);
+            if (newErrors[field] !== '') error = true;
+        }
+    };
+ 
+    
+    await validateData();
+     setErrors(newErrors);
+    
+    if (error === false) {
+        try {
+            const response = await fetch('/api/auth/register', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(formData),
+            });
+            if (response.ok) {
+                const sentMessage = await response.json();
+                console.log("test = ", sentMessage);
+            } else {
+                console.error('Erreur lors de l\'envoi du message');
+            }
+        } catch (error) {
+            console.error('Erreur lors de l\'envoi du message:', error);
+        }
+    }
+ 
     console.log('ERROR ==');
     console.log(errors);
     console.log(formData);
     console.log(error);
-  };
+ };
 
    return (
       <div className="Form">

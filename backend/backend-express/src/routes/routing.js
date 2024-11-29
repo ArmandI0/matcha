@@ -1,5 +1,7 @@
 import express from 'express';
 import chatController from '../controllers/chatController.js';
+import auth from '../services/auth.js';
+
 const router = express.Router();
 
 
@@ -19,10 +21,11 @@ routes.chat.get('/get-users-list', chatController.getUsersList);
 routes.chat.post('/send-message', chatController.sendMessage);
 
 // AUTH
-// auth.post('/send-message', chatController.sendMessage);
+routes.auth.post('/register', auth.register);
 
 
 
+// ROUTER
 router.use('/chat', routes.chat);
 router.use('/auth', routes.auth);
 
