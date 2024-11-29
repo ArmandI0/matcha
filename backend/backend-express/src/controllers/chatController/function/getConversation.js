@@ -24,7 +24,6 @@ const getConversation = async (req, res) => {
     try {
         const userId = req.params.userId;
         const receiverId = req.params.chatUserId;
-
         return res.status(200).send(await fetchConversation(userId, receiverId));
     } catch (error) {
         console.error('Error fetching conversation:', error);

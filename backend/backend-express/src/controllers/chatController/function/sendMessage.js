@@ -59,11 +59,11 @@ const sendMessage = async (req, res) => {
         const { message, receiverData } = req.body;
         const senderData                = message.sender;
         
-        if (!message || !message.message || !receiverData || !receiverData.user_id|| !senderData || !senderData.id || !senderData.username) {
+        if (!message || !message.message || !receiverData || !receiverData.id|| !senderData || !senderData.id || !senderData.username) {
             return res.status(400).send('Bad request: missing data');
         }
 
-        const conversation              = await fetchConversation(senderData.id, receiverData.user_id);
+        const conversation              = await fetchConversation(senderData.id, receiverData.id);
         const newMessage                = getNewMessage(senderData, message.message);
 
         if (conversation) {
@@ -77,7 +77,7 @@ const sendMessage = async (req, res) => {
                 throw new Error("Update failed : No rows affected");
             }
         } else {
-            const affectedRows = await insertConversation(senderData.id, receiverData.user_id, [newMessage]);
+            const affectedRows = await insertConversation(senderData.id, receiverData.id, [newMessage]);
             if (affectedRows === 0) {
                 throw new Error("Insertion failed : No rows affected");
             }
