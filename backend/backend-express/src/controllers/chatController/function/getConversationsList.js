@@ -17,12 +17,13 @@ const getAllConversations = async (userId) => {
 };
 
 // | getFormattedConversations
-//      Reorder all conversations to ensure userId is always in user1_id for simplicity
+//      Reorder all conversations to ensure userId is always in user1_id for simplicity and add last message -> getFormattedConversations(userId, conversations)
 //          @userId -> ID of the requesting user
 //          @conversations -> Array of conversations
 
 const getFormattedConversations = (userId, conversations) => {
     return conversations.map(conversation => {
+        const lastMessage = conversation.messages.length > 0 ? conversation.messages[conversation.messages.length - 1] : null;
         if (conversation.user2_id === userId) {
             return {
                 ...conversation,
@@ -32,19 +33,9 @@ const getFormattedConversations = (userId, conversations) => {
                 user1_last_name: conversation.user2_last_name,
                 user2_first_name: conversation.user1_first_name,
                 user2_last_name: conversation.user1_last_name,
+                last_message: lastMessage,
             };
         }
-        return conversation;
-    });
-};
-
-// | addLastMessage
-//      Add variable last_message to tab
-//          @conversations -> Array of conversations
-
-const addLastMessage = (conversations) => {
-    return conversations.map(conversation => {
-        const lastMessage = conversation.messages.length > 0 ? conversation.messages[conversation.messages.length - 1] : null;
         return {
             ...conversation,
             last_message: lastMessage,
@@ -56,10 +47,8 @@ const addLastMessage = (conversations) => {
 
 const getConversationsList = async (req, res) => {
     try {
-        const userId = parseInt(req.params.userId, 10);
-        let conversations   = await getAllConversations(userId);
-        conversations       = getFormattedConversations(userId, conversations);
-        conversations        = addLastMessage(conversations)
+        const userId        = parseInt(req.params.userId, 10);
+        const conversations = getFormattedConversations(userId, await getAllConversations(userId));
         return res.status(200).json(conversations);
     } catch (error) {
         console.error('Error fetching users list:', error);
