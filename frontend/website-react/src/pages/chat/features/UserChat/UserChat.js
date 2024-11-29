@@ -31,9 +31,13 @@ function UserChat({ selectedUser }) {
     const handleSendMessage = async () => {
         if (newMessage.trim()) {
             const messageData = {
-                sender_user_id: {id: currentUserId, username: 'user1'},  // HARDCODE APRES AUTH C BON
-                receiver_user_id: selectedUser.user_id,  // Utilisation de l'ID de l'utilisateur sélectionné
-                message: newMessage,
+                message: {
+                    sender: {
+                        id: currentUserId, username: 'user1' // After authentification change the Hard code aranger
+                    },
+                    message: newMessage,
+                },
+                receiverData: selectedUser,
             };
     
             try {
