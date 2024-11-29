@@ -27,7 +27,7 @@ const updateConversation = async (messages, conversationId) => {
 //          @userId -> ID of the requesting user
 //          @receiverId -> ID of the user selected (in the UserList)         
 //          @messages -> The created array of messages
-
+    
 const insertConversation = async (senderId, receiverId, messages) => {
     const result = await db.query(queries.sendMessage.insertConversation, [senderId, receiverId, messages]);
     return (result.rowAffected);

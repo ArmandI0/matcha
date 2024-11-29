@@ -1,4 +1,5 @@
 import checkData from './validationFunction.js'
+import authController from '../controllers/authController/authController.js';
 
 const validForm = async(form) => {
     const validator = {
@@ -25,7 +26,7 @@ const register = async (req, res) => {
     const isValid = await validForm(req.body);
     if (!isValid)
         console.log('invalid data'); // Besoin de retourner une erreur
-    
+    authController.insertUser(req.body);
 
     return res.status(200);
 }

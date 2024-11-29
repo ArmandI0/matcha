@@ -1,3 +1,0 @@
-const authQuery = {
-    const setUser: 
-}
