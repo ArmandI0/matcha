@@ -1,4 +1,7 @@
-const db = require('../config/database');
+
+
+import db from '../config/database.js';
+
 
 // Récupérer les messages d'une conversation
 const getConversation = async (req, res) => {
@@ -155,9 +158,11 @@ const sendMessage = async (req, res) => {
     }
 };
 
-
-module.exports = {
+const chatController = {
     getConversation,
     getUsersList,
     sendMessage,
 };
+
+export default chatController;
+

@@ -4,12 +4,20 @@ import TextField from '@mui/material/TextField';
 function InputField(props) {
     return (
         <Box
-          component="form"
           sx={{ '& > :not(style)': {width: '25ch', marginBottom: '5px' , marginTop: '5px'} }}
           noValidate
           autoComplete="off"
         >
-        <TextField id="outlined-basic" label={props.nameField} variant="outlined" />
+          <TextField
+            id="outlined-basic"
+            label={props.nameField}
+            type={props.type}
+            variant="outlined"
+            value={props.value}
+            onChange={props.onChange}
+            error={Boolean(props.error)}
+            helperText={props.error}
+          />
         </Box>
     );
 }

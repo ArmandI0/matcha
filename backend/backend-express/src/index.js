@@ -1,49 +1,31 @@
-const express = require('express');
-const database = require('./config/database');
-
-
-
+// const db = require('../config/database'); => EMILE TU AS 50 ans ou quoi ca se fait plus 
+// import db from '../config/database';
+import express from 'express'
+import routes from './routes/routing.js'
+// Recupere l'objet expresse et init l'app qui  va servir de backend
 const app = express();
-app.use(express.json()); // Fonction pour recuperer les POST mais si tu le met a la compilation le back demarre pas 
-// Fonction pour vérifier la connexion à la DB
-async function checkDatabaseConnection() {
-  try {
-    const client = await database.connect();
-    await client.query('SELECT NOW()');
-    client.release();
-    console.log('✅ Base de données connectée avec succès');
-    return true;
-  } catch (error) {
-    console.error('❌ Erreur de connexion à la base de données:', error.message);
-    return false;
-  }
-}
-// cha
-const chatRoute = require('./routes/chatRoute');
 
-app.use('/api/chat', chatRoute); 
+// Middleware : (un middleware c'est un truc qui bricole la requete Emile enfin c'est ce que j'ai cru comprenndre. Ca prend la requete et ca check ce que tu lui demande 
+// et ca s'execute a la suuite chaque middleware) 
+// parse automatiquement les JSONS a reception -> (Ajoute les donnees parsees dans req.body)
 
-// app.listen(3000, () => {
-//   console.log('Server is running on port 3000');
-// });
 
+
+// Routing pour le chat
+
+app.use(express.json());
+
+
+// Routing
+app.use('/api', routes);
+
+const PORT = process.env.PORT;
+app.listen(PORT, () => {
+  console.log('Server is running on port 3000');
+});
 
 // Démarrage du serveur avec vérification de la DB
-const PORT = process.env.PORT || 3000;
 
-async function startServer() {
-  const isDatabaseConnected = await checkDatabaseConnection();
-  
-  if (isDatabaseConnected) {
-    app.listen(PORT, () => {
-      console.log(`🚀 Serveur démarré sur le port ${PORT}`);
-    });
-  } else {
-    console.error('🛑 Impossible de démarrer le serveur : la base de données n\'est pas accessible');
-    process.exit(1);
-  }
-}
+// module.exports = app; => pas COMMONJS 
 
-startServer();
-
-module.exports = app;
+export {app}; // ESmodule

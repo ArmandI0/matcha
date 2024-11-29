@@ -1,13 +1,13 @@
 import { useState } from "react";
-import RegisterForm from "../../features/login/LoginForm";
 import LoginForm from "../../features/login/LoginForm";
 import PrimarySearchAppBar from "../../features/NavBar/NavBar";
+import RegisterForm from "../../features/login/RegisterForm";
 import './Home.css';
 
 function Home() {
     
     // Veriier si connecter
-    const [state, changeState] = useState({login : true})
+    const [state, changeState] = useState({login : false})
     if (state.login === false) {
         return (
             <div>
