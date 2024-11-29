@@ -48,7 +48,7 @@ function UserChat({ selectedUser }) {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(messageData),  // Envoie les données dans le bon format
+                    body: JSON.stringify(messageData),
                 });
     
                 if (response.ok) {
