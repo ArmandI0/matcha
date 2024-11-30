@@ -5,13 +5,13 @@ import './UserChat.css';
 function UserChat({ selectedUser }) {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
-    const currentUserId = 1;
+    const currentUserId = 1; // Hard code
 
     useEffect(() => {
         const fetchMessages = async () => {
-            if (selectedUser && selectedUser.user_id) {
+            if (selectedUser && selectedUser.user2_id) {
                 try {
-                    const response = await fetch(`/api/chat/recent-conversations/${currentUserId}/${selectedUser.user_id}`);
+                    const response = await fetch(`/api/chat/recent-conversations/${currentUserId}/${selectedUser.user2_id}`);
                     if (response.ok) {
                         const data = await response.json();
                         console.log(data);
@@ -37,7 +37,9 @@ function UserChat({ selectedUser }) {
                     },
                     message: newMessage,
                 },
-                receiverData: selectedUser,
+                receiverData: {
+                    id: selectedUser.user2_id, username: selectedUser.user2_first_name
+                },
             };
     
             try {
@@ -46,7 +48,7 @@ function UserChat({ selectedUser }) {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(messageData),  // Envoie les données dans le bon format
+                    body: JSON.stringify(messageData),
                 });
     
                 if (response.ok) {
@@ -69,7 +71,7 @@ function UserChat({ selectedUser }) {
         <div className="chat-window">
             {selectedUser ? (
                 <>
-                    <h2>Chat with {selectedUser.first_name} {selectedUser.last_name}</h2>
+                    <h2>Chat with {selectedUser.user2_first_name} {selectedUser.user2_last_name}</h2>
                     <Message messages={messages} currentUserId={currentUserId} />
                     <div className="message-input">
                         <input

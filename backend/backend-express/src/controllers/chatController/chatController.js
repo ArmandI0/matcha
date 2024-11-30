@@ -1,10 +1,10 @@
 import getConversation from './function/getConversation.js'
-import getUsersList from './function/getUsersList.js'
+import getConversationsList from './function/getConversationsList.js'
 import sendMessage from './function/sendMessage.js'
 
 const chatController = {
     getConversation,
-    getUsersList,
+    getConversationsList,
     sendMessage
 };
 

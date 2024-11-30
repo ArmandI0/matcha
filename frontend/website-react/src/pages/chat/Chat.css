@@ -5,7 +5,7 @@
 
 }
 
-.users-list {
+.conversations-list {
     width: 300px;
     border-right: 1px solid #ddd;
     overflow-y: auto;
