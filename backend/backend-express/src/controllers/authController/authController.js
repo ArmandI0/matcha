@@ -1,7 +1,7 @@
-import insertUser from './function/registerControl.js'
+import registerController from './function/registerControl.js'
 
 const authController = {
-    insertUser
+    registerController,
 };
 
 export default authController;

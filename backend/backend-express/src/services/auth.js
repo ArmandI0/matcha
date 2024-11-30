@@ -14,7 +14,7 @@ const validForm = async(form) => {
         const validationFct = validator[field];
         const value = form[field];
         const error = await validationFct(value);
-        if (error !== '') return false;
+        if (error !== '') return error;
     }
     return true;
 } 
@@ -24,13 +24,19 @@ const register = async (req, res) => {
     console.log(req.body);
     
     const isValid = await validForm(req.body);
-    if (!isValid)
-        console.log('invalid data'); // Besoin de retourner une erreur
-    authController.insertUser(req.body);
-
-    return res.status(200);
+    if (isValid !== true)
+    {
+        console.log(isValid); // Besoin de retourner une erreur
+        return res.status(200).json({
+            message: isValid,
+            error: true,
+        });
+    }
+    authController.registerController.insertNewUser(req.body);
+    return res.status(200).json({
+        error : false,
+    });
 }
-
 
 const auth = {
     register,

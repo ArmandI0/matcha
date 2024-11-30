@@ -55,9 +55,11 @@ export default function RegisterForm() {
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(formData),
             });
+            console.log(response);
             if (response.ok) {
-                const sentMessage = await response.json();
-                console.log("test = ", sentMessage);
+                const res = await response.json();
+                  
+                console.log(res);
             } else {
                 console.error('Erreur lors de l\'envoi du message');
             }
