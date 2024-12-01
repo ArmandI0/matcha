@@ -2,12 +2,21 @@ import database from '../../../config/database.js'
 import queries from '../queries.js'
 import bcrypt from 'bcrypt'
 
+const createProfileUser = async (userId, firstName, lastName) => {
+    const result = await database.query(queries.userProfile.setName, [userId, firstName, lastName]);
+}
+
 const registerController = {
     async insertNewUser(form) {
     
         const password = bcrypt.hashSync(form.password, 10);
-    
+        console.log('FORM');
+        console.log(form);
         const result = await database.query(queries.userManagement.setUser, [form.username, form.email, password]);
+        const id = result.rows[0].id;
+        await createProfileUser(id, form.firstName, form.lastName);
+        console.log('INSERTION RESULT');
+        console.log(result);
         return result;
     },
     

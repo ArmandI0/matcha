@@ -1,4 +1,3 @@
-import { json } from "express";
 import authController from "../controllers/authController/authController.js";
 
 const checkData = {
