@@ -3,11 +3,8 @@ import queries from '../queries.js'
 import bcrypt from 'bcrypt'
 import { v4 as uuidv4 } from 'uuid';
 import jwt from 'jsonwebtoken'
-
-const createProfileUser = async (userId, firstName, lastName) => {
-    const result = await database.query(queries.userProfile.setName, [userId, firstName, lastName]);
-}
-
+import errManagement from '../../../config/errorsManagement.js';
+    
 const registerController = {
     async insertNewUser(form) {
         try {
@@ -23,33 +20,31 @@ const registerController = {
             return token;
         }
         catch(error) {
-            if (error.code === 'ECONNREFUSED') {
-                throw {
-                    status: 503,
-                    message: 'Service temporarily unavailable. Please try again later.',
-                };
-            }
-            else {
-                throw {
-                    status: 500,
-                    message: 'An internal error occurred. Please try again later.',
-                };
-            }
-            
+            throw errManagement.handleDatabaseError(error);
         }
     },
     
     async checkIfEmailAlreadyExist(email) {
-        const result = await database.query(queries.userManagement.checkIfEmailAlreadyExist, [email]);
-        const ret = result.rows[0].exist
-        console.log('ret = ' + ret);
-        return ret;
+        try {
+            const result = await database.query(queries.userManagement.checkIfEmailAlreadyExist, [email]);
+            const ret = result.rows[0].exist
+            console.log('ret = ' + ret);
+            return ret;
+        }
+        catch(error) {
+            throw errManagement.handleDatabaseError(error);
+        }
     },
 
     async checkIfUsernameAlreadyExist(username) {
-        const result = await database.query(queries.userManagement.checkIfUsernameAlreadyExist, [username]);
-        const ret = result.rows[0].exist
-        return ret;
+        try {
+            const result = await database.query(queries.userManagement.checkIfUsernameAlreadyExist, [username]);
+            const ret = result.rows[0].exist
+            return ret;
+        }
+        catch(error) {
+            throw errManagement.handleDatabaseError(error);
+        }
     },
 
 }

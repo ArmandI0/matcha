@@ -50,7 +50,7 @@ export default function RegisterForm() {
     
     if (error === false) {
         try {
-            const response = await fetch('/api/auth/register', {
+            const response = await fetch('/auth/register', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(formData),

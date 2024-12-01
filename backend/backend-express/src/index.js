@@ -2,6 +2,7 @@
 // import db from '../config/database';
 import express from 'express'
 import routes from './routes/routing.js'
+import rtAuth from './routes/authRoute.js';
 // Recupere l'objet expresse et init l'app qui  va servir de backend
 const app = express();
 
@@ -15,6 +16,7 @@ const app = express();
 
 app.use(express.json());
 
+app.use('/auth', rtAuth);
 
 // Routing
 app.use('/api', routes);
