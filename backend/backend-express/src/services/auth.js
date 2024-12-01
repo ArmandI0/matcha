@@ -1,5 +1,5 @@
 import checkData from './validationFunction.js'
-import authController from '../controllers/authController/authController.js';
+import authController from '../controllers/authController/authController.js'
 
 const validForm = async(form) => {
     const validator = {
@@ -19,7 +19,11 @@ const validForm = async(form) => {
         }
     }
     return true;
-} 
+}
+
+const checkAuth = async(req, res) => {
+
+}
 
 const register = async (req, res) => {
     console.log(req.body);
@@ -30,13 +34,21 @@ const register = async (req, res) => {
         console.log(isValid); // Besoin de retourner une erreur
         return res.status(200).json(isValid);
     }
-    authController.registerController.insertNewUser(req.body);
+    const token = authController.registerController.insertNewUser(req.body);
+    res.cookie('authToken', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'Strict',
+        maxAge: 86400000
+    });
     return res.status(200).json({
         error: false,
         message: '',
         field: '',
     });
 }
+
+
 
 const auth = {
     register,

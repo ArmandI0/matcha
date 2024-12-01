@@ -2,6 +2,7 @@ import database from '../../../config/database.js'
 import queries from '../queries.js'
 import bcrypt from 'bcrypt'
 import { v4 as uuidv4 } from 'uuid';
+import jwt from 'jsonwebtoken'
 
 const createProfileUser = async (userId, firstName, lastName) => {
     const result = await database.query(queries.userProfile.setName, [userId, firstName, lastName]);
@@ -9,17 +10,33 @@ const createProfileUser = async (userId, firstName, lastName) => {
 
 const registerController = {
     async insertNewUser(form) {
-        const id = uuidv4();
-        console.log('ID');
-        console.log(id);
-        const password = bcrypt.hashSync(form.password, 10);
-        console.log('FORM');
-        console.log(form);
-        const result = await database.query(queries.userManagement.setUser, [form.username, form.email, password, id]);
-        await createProfileUser(id, form.firstName, form.lastName);
-        console.log('INSERTION RESULT');
-        console.log(result);
-        return result;
+        try {
+            const id = uuidv4();
+            const password = bcrypt.hashSync(form.password, 10);
+            await database.query(queries.userManagement.setUser, [form.username, form.email, password, id]);
+            await database.query(queries.userProfile.setName, [id, form.firstName, form.lastName]);
+            const token = jwt.sign(
+                {id: id, username: form.username},
+                process.env.JWT_KEY,
+                { expiresIn: '24h' }
+            );
+            return token;
+        }
+        catch(error) {
+            if (error.code === 'ECONNREFUSED') {
+                throw {
+                    status: 503,
+                    message: 'Service temporarily unavailable. Please try again later.',
+                };
+            }
+            else {
+                throw {
+                    status: 500,
+                    message: 'An internal error occurred. Please try again later.',
+                };
+            }
+            
+        }
     },
     
     async checkIfEmailAlreadyExist(email) {
