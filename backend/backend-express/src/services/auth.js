@@ -13,28 +13,28 @@ const validForm = async(form) => {
     for (const field in validator) {
         const validationFct = validator[field];
         const value = form[field];
-        const error = await validationFct(value);
-        if (error !== '') return error;
+        const status = await validationFct(value);
+        if (status.error === true) {
+            return status;
+        }
     }
     return true;
 } 
 
 const register = async (req, res) => {
-    console.log("OCUOUC");
     console.log(req.body);
     
     const isValid = await validForm(req.body);
-    if (isValid !== true)
-    {
+    if (isValid !== true) {
+        console.log('isValid');
         console.log(isValid); // Besoin de retourner une erreur
-        return res.status(200).json({
-            message: isValid,
-            error: true,
-        });
+        return res.status(200).json(isValid);
     }
     authController.registerController.insertNewUser(req.body);
     return res.status(200).json({
-        error : false,
+        error: false,
+        message: '',
+        field: '',
     });
 }
 

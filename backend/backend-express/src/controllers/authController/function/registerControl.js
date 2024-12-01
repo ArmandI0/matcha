@@ -21,7 +21,6 @@ const registerController = {
     async checkIfUsernameAlreadyExist(username) {
         const result = await database.query(queries.userManagement.checkIfUsernameAlreadyExist, [username]);
         const ret = result.rows[0].exist
-        console.log('ret = ' + ret);
         return ret;
     },
 

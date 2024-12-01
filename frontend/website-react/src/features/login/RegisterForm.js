@@ -46,7 +46,7 @@ export default function RegisterForm() {
  
     
     await validateData();
-     setErrors(newErrors);
+    setErrors(newErrors);
     
     if (error === false) {
         try {
@@ -55,10 +55,19 @@ export default function RegisterForm() {
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(formData),
             });
+            console.log('response ======================');
             console.log(response);
+            console.log('response ======================');
             if (response.ok) {
                 const res = await response.json();
-                  
+                if (res.error === true) {
+                  console.log('RETOUR TABLEAU DERREUR');
+                  setErrors({...errors, [res.field]: res.message});
+                  console.log(errors);
+                }              
+                else {
+                  console.log('ENTREE VALID');
+                }
                 console.log(res);
             } else {
                 console.error('Erreur lors de l\'envoi du message');

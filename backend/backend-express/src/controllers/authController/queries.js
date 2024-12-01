@@ -6,11 +6,11 @@ const authQueries = {
             VALUES ($1, $2, $3)`,
 
         checkIfUsernameAlreadyExist:`
-            SELECT EXISTS(SELECT 1 FROM users WHERE email = $1) as exist;
+            SELECT EXISTS(SELECT 1 FROM users WHERE username = $1) as exist;
             `,
 
         checkIfEmailAlreadyExist:`
-            SELECT EXISTS(SELECT 1 FROM users WHERE username = $1) as exist;
+            SELECT EXISTS(SELECT 1 FROM users WHERE email = $1) as exist;
             `
     }
 
