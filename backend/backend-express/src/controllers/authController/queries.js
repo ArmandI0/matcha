@@ -2,8 +2,8 @@ const authQueries = {
     userManagement:
     {
         setUser:`
-            INSERT INTO users (username, email, password)
-            VALUES ($1, $2, $3)
+            INSERT INTO users (username, email, password, id)
+            VALUES ($1, $2, $3, $4)
             RETURNING id`,
 
         checkIfUsernameAlreadyExist:`

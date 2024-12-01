@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS private_messages, liked_profiles, profile_views, user_profiles, pictures, interests, users CASCADE;
 
 CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     username VARCHAR(100) UNIQUE,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL
@@ -26,7 +26,7 @@ CREATE TABLE pictures (
 );
 
 CREATE TABLE user_profiles (
-    id SERIAL PRIMARY KEY,
+    id UUID PRIMARY KEY,
     user_id INTEGER NOT NULL REFERENCES users(id),
     first_name VARCHAR(100),
     last_name VARCHAR(100),
