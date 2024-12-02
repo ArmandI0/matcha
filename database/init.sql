@@ -1,14 +1,14 @@
 DROP TABLE IF EXISTS private_messages, liked_profiles, profile_views, user_profiles, pictures, interests, users CASCADE;
 
 CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     username VARCHAR(100) UNIQUE,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE interests (
-    id SERIAL PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     interest_0 VARCHAR(100),
     interest_1 VARCHAR(100),
     interest_2 VARCHAR(100),
@@ -17,7 +17,7 @@ CREATE TABLE interests (
 );
 
 CREATE TABLE pictures (
-    id SERIAL PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     picture_0 VARCHAR(100),
     picture_1 VARCHAR(100),
     picture_2 VARCHAR(100),
@@ -26,39 +26,39 @@ CREATE TABLE pictures (
 );
 
 CREATE TABLE user_profiles (
-    id SERIAL PRIMARY KEY,
-    user_id INTEGER NOT NULL REFERENCES users(id),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL REFERENCES users(id),
     first_name VARCHAR(100),
     last_name VARCHAR(100),
     gender VARCHAR(50),
     sexual_preferences VARCHAR(255),
     biography VARCHAR(255),
-    interests_id INTEGER REFERENCES interests(id),
-    pictures_id INTEGER REFERENCES pictures(id),
+    interests_id UUID REFERENCES interests(id),
+    pictures_id UUID REFERENCES pictures(id),
     fame_rating INTEGER DEFAULT 0,
     location VARCHAR(255)
 );
 
 CREATE TABLE profile_views (
-    id SERIAL PRIMARY KEY,
-    viewed_profile_id INTEGER NOT NULL REFERENCES user_profiles(id),
-    viewer_user_id INTEGER NOT NULL REFERENCES users(id),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    viewed_profile_id UUID NOT NULL REFERENCES user_profiles(id),
+    viewer_user_id UUID NOT NULL REFERENCES users(id),
     view_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UNIQUE(viewed_profile_id, viewer_user_id)
 );
 
 CREATE TABLE liked_profiles (
-    id SERIAL PRIMARY KEY,
-    liked_profile_id INTEGER NOT NULL REFERENCES user_profiles(id),
-    sender_user_id INTEGER NOT NULL REFERENCES users(id),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    liked_profile_id UUID NOT NULL REFERENCES user_profiles(id),
+    sender_user_id UUID NOT NULL REFERENCES users(id),
     like_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UNIQUE(liked_profile_id, sender_user_id)
 );
 
 CREATE TABLE conversations (
     id SERIAL PRIMARY KEY,
-    user1_id INT NOT NULL,
-    user2_id INT NOT NULL,
+    user1_id UUID NOT NULL,
+    user2_id UUID NOT NULL,
     messages JSONB DEFAULT '[]'::JSONB,  -- Pour stocker les messages en JSON
     last_activity TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     conversation_active BOOLEAN DEFAULT TRUE,

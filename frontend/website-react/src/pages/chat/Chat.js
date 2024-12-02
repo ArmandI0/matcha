@@ -5,22 +5,6 @@ import UserChat from './features/UserChat/UserChat';
 
 function Chat() {
     const [selectedUser, setSelectedUser] = useState(null);
-    const [users, setUsers] = useState([]);
-
-    useEffect(() => {
-        const fetchUsers = async () => {
-            try {
-                const response = await fetch('/api/chat/get-users-list');
-                const data = await response.json();
-                console.log(data)
-                setUsers(data);
-            } catch (error) {
-                console.error('Erreur de récupération des utilisateurs:', error);
-            }
-        };
-
-        fetchUsers();
-    }, []);
 
     const handleUserClick = (user) => {
         setSelectedUser(user);
@@ -28,7 +12,7 @@ function Chat() {
 
     return (
         <div className="chat-component">
-            <UsersList users={users} onUserClick={handleUserClick} />
+            <UsersList onUserClick={handleUserClick} />
             <UserChat selectedUser={selectedUser} />
         </div>
     );

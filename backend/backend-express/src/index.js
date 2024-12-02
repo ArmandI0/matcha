@@ -2,19 +2,22 @@
 // import db from '../config/database';
 import express from 'express'
 import routes from './routes/routing.js'
-// Recupere l'objet expresse et init l'app qui  va servir de backend
+import rtAuth from './routes/authRoute.js';
+import cookieParser from 'cookie-parser';
+
 const app = express();
 
-// Middleware : (un middleware c'est un truc qui bricole la requete Emile enfin c'est ce que j'ai cru comprenndre. Ca prend la requete et ca check ce que tu lui demande 
-// et ca s'execute a la suuite chaque middleware) 
-// parse automatiquement les JSONS a reception -> (Ajoute les donnees parsees dans req.body)
-
-
-
-// Routing pour le chat
-
+app.use(cookieParser())
 app.use(express.json());
 
+app.use('/auth', rtAuth);
+
+// function de test pour le backend
+// app.get('/', function (req, res) {
+//   // Cookies that have not been signed
+//   console.log('Cookies: ', req.cookies.authToken);
+//   return res.status(200)
+// });
 
 // Routing
 app.use('/api', routes);
