@@ -5,7 +5,7 @@ import './UserChat.css';
 function UserChat({ selectedUser }) {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
-    const currentUserId = 1; // Hard code
+    const currentUserId = 'e7b2e100-9a69-4d81-9685-3885f50c4cb3'; // Hard code
 
     useEffect(() => {
         const fetchMessages = async () => {
