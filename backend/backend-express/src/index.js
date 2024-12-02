@@ -1,5 +1,3 @@
-// const db = require('../config/database'); => EMILE TU AS 50 ans ou quoi ca se fait plus 
-// import db from '../config/database';
 import express from 'express'
 import routes from './routes/routing.js'
 import rtAuth from './routes/authRoute.js';
@@ -7,17 +5,20 @@ import cookieParser from 'cookie-parser';
 
 const app = express();
 
-app.use(cookieParser())
+//Convertie les json
 app.use(express.json());
+//Ajoute les cookies a req.cookies
+app.use(cookieParser())
+
 
 app.use('/auth', rtAuth);
 
 // function de test pour le backend
-// app.get('/', function (req, res) {
-//   // Cookies that have not been signed
-//   console.log('Cookies: ', req.cookies.authToken);
-//   return res.status(200)
-// });
+app.get('/test', function (req, res) {
+  // Cookies that have not been signed
+  console.log('Cookies: ', req.cookies.authToken);
+  return res.status(200)
+});
 
 // Routing
 app.use('/api', routes);

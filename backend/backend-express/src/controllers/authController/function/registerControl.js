@@ -28,7 +28,6 @@ const registerController = {
         try {
             const result = await database.query(queries.userManagement.checkIfEmailAlreadyExist, [email]);
             const ret = result.rows[0].exist
-            console.log('ret = ' + ret);
             return ret;
         }
         catch(error) {

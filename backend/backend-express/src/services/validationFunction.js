@@ -1,7 +1,7 @@
 import authController from "../controllers/authController/authController.js";
 
 const checkData = {
-    validateEmail(email) {
+    async validateEmail(email) {
         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         let message = '';
         let error = false;
@@ -10,7 +10,8 @@ const checkData = {
             message = 'Enter a mail adress';
         else if (emailRegex.test(email) === false)
             message = 'Invalid mail';
-        else if (authController.registerController.checkIfEmailAlreadyExist(email) === true)
+        const checkEmail = await authController.registerController.checkIfEmailAlreadyExist(email);
+        if (checkEmail !== false)
             message = 'Email already used';
         if (message !== '')
             error = true;
