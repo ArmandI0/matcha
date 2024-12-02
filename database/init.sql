@@ -118,8 +118,8 @@ VALUES
     (
         (SELECT id FROM users WHERE username = 'user1'),
         (SELECT id FROM users WHERE username = 'armand'),
-        '[{"sender": {"username": "user1", "id": 1}, "message": "Hey Armand, how are you?", "sent_at": "2024-11-28T10:00:00Z"},
-          {"sender": {"username": "armand", "id": 2}, "message": "Hi John, I am good! And you?", "sent_at": "2024-11-28T10:05:00Z"}]',
+        '[{"sender": {"username": "user1", "id": "(SELECT id FROM users WHERE username = ''user1'')"}, "message": "Hey Armand, how are you?", "sent_at": "2024-11-28T10:00:00Z"},
+          {"sender": {"username": "armand", "id": "(SELECT id FROM users WHERE username = ''armand'')"}, "message": "Hi John, I am good! And you?", "sent_at": "2024-11-28T10:05:00Z"}]',
         CURRENT_TIMESTAMP
     );
 
@@ -129,8 +129,8 @@ VALUES
     (
         (SELECT id FROM users WHERE username = 'user1'),
         (SELECT id FROM users WHERE username = 'benoit'),
-        '[{"sender": {"username": "user1", "id": 1}, "message": "Hey Benoit, how is it going?", "sent_at": "2024-11-28T09:50:00Z"},
-          {"sender": {"username": "benoit", "id": 3}, "message": "Good, just busy with tech stuff. You?", "sent_at": "2024-11-28T09:55:00Z"}]',
+        '[{"sender": {"username": "user1", "id": "(SELECT id FROM users WHERE username = ''user1'')"}, "message": "Hey Benoit, how is it going?", "sent_at": "2024-11-28T09:50:00Z"},
+          {"sender": {"username": "benoit", "id": "(SELECT id FROM users WHERE username = ''benoit'')"}, "message": "Good, just busy with tech stuff. You?", "sent_at": "2024-11-28T09:55:00Z"}]',
         CURRENT_TIMESTAMP
     );
 
@@ -140,8 +140,8 @@ VALUES
     (
         (SELECT id FROM users WHERE username = 'user1'),
         (SELECT id FROM users WHERE username = 'baptiste'),
-        '[{"sender": {"username": "user1", "id": 1}, "message": "Hey Baptiste, how have you been?", "sent_at": "2024-11-28T09:30:00Z"},
-          {"sender": {"username": "baptiste", "id": 4}, "message": "Doing well, just gaming a lot lately. You?", "sent_at": "2024-11-28T09:35:00Z"}]',
+        '[{"sender": {"username": "user1", "id": "(SELECT id FROM users WHERE username = ''user1'')"}, "message": "Hey Baptiste, how have you been?", "sent_at": "2024-11-28T09:30:00Z"},
+          {"sender": {"username": "baptiste", "id": "(SELECT id FROM users WHERE username = ''baptiste'')"}, "message": "Doing well, just gaming a lot lately. You?", "sent_at": "2024-11-28T09:35:00Z"}]',
         CURRENT_TIMESTAMP
     );
 
@@ -151,8 +151,8 @@ VALUES
     (
         (SELECT id FROM users WHERE username = 'user1'),
         (SELECT id FROM users WHERE username = 'dorian'),
-        '[{"sender": {"username": "user1", "id": 1}, "message": "Hey Dorian, what’s up?", "sent_at": "2024-11-28T09:10:00Z"},
-          {"sender": {"username": "dorian", "id": 5}, "message": "Hey John, not much, just traveling! How about you?", "sent_at": "2024-11-28T09:15:00Z"}]',
+        '[{"sender": {"username": "user1", "id": "(SELECT id FROM users WHERE username = ''user1'')"}, "message": "Hey Dorian, what’s up?", "sent_at": "2024-11-28T09:10:00Z"},
+          {"sender": {"username": "dorian", "id": "(SELECT id FROM users WHERE username = ''dorian'')"}, "message": "Hey John, not much, just traveling! How about you?", "sent_at": "2024-11-28T09:15:00Z"}]',
         CURRENT_TIMESTAMP
     );
 
@@ -162,7 +162,8 @@ VALUES
     (
         (SELECT id FROM users WHERE username = 'user1'),
         (SELECT id FROM users WHERE username = 'lucas'),
-        '[{"sender": {"username": "user1", "id": 1}, "message": "Hey Lucas, what’s new?", "sent_at": "2024-11-28T08:30:00Z"},
-          {"sender": {"username": "lucas", "id": 6}, "message": "Just finished some work. How are you?", "sent_at": "2024-11-28T08:35:00Z"}]',
+        '[{"sender": {"username": "user1", "id": "(SELECT id FROM users WHERE username = ''user1'')"}, "message": "Hey Lucas, what’s new?", "sent_at": "2024-11-28T08:30:00Z"},
+          {"sender": {"username": "lucas", "id": "(SELECT id FROM users WHERE username = ''lucas'')"}, "message": "Just finished some work. How are you?", "sent_at": "2024-11-28T08:35:00Z"}]',
         CURRENT_TIMESTAMP
     );
+    

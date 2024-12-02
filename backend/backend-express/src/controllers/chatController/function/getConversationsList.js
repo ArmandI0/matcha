@@ -47,7 +47,7 @@ const getFormattedConversations = (userId, conversations) => {
 
 const getConversationsList = async (req, res) => {
     try {
-        const userId        = parseInt(req.params.userId, 10);
+        const userId        = req.params.userId;
         const conversations = getFormattedConversations(userId, await getAllConversations(userId));
         return res.status(200).json(conversations);
     } catch (error) {

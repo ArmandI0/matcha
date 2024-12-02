@@ -34,9 +34,9 @@ const queries = {
             FROM 
                 conversations c
             JOIN 
-                user_profiles u1 ON c.user1_id = u1.id
+                user_profiles u1 ON c.user1_id = u1.user_id
             JOIN 
-                user_profiles u2 ON c.user2_id = u2.id
+                user_profiles u2 ON c.user2_id = u2.user_id
             WHERE 
                 c.user1_id = $1 OR c.user2_id = $1;
     `,
