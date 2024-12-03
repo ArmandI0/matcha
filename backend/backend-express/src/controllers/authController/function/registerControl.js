@@ -1,9 +1,9 @@
+import errManagement from '../../../config/errorsManagement.js';
 import database from '../../../config/database.js'
 import queries from '../queries.js'
 import bcrypt from 'bcrypt'
 import { v4 as uuidv4 } from 'uuid';
 import jwt from 'jsonwebtoken'
-import errManagement from '../../../config/errorsManagement.js';
     
 const registerController = {
     async insertNewUser(form) {

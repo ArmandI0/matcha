@@ -21,8 +21,12 @@ const validForm = async(form) => {
     return true;
 }
 
-const checkAuth = async(req, res) => {
-
+const isAuthenticated = async(req, res) => {
+    if (req.cookies.authToken) {
+    
+    }
+    else
+        return 
 }
 
 const register = async (req, res) => {
