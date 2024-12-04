@@ -7,40 +7,40 @@ import checkData from "./validationFunction";
 
 export default function RegisterForm() {
 
-  const [fomIsValid, setValidation] = useState(false);
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-    lastName: '',
-    firstName: ''
-  });
-  const [errors, setErrors] = useState({
-    username: '',
-    email: '',
-    password: '',
-    lastName: '',
-    firstName: ''
-  });
+  	const [fomIsValid, setValidation] = useState(false);
+  	const [formData, setFormData] = useState({
+  	  username: '',
+  	  email: '',
+  	  password: '',
+  	  lastName: '',
+  	  firstName: ''
+  	});
+  	const [errors, setErrors] = useState({
+		username: '',
+		email: '',
+		password: '',
+		lastName: '',
+		firstName: ''
+  	});
 
-  const fetchAPI = async (e) => {
-    try {
-      const response = await fetch('/test', {
-          method: 'GET',
-      });
-      if (response.ok) {
-          const res = await response.json();
-          console.log(res);
-      } else {
-          console.error('Erreur lors de l\'envoi du message');
-      }
-    } catch (error) {
-      console.error('Erreur lors de l\'envoi du message:', error);
-    }
-  }
+	const fetchAPI = async (e) => {
+		try {
+	    	const response = await fetch('/test', {
+	      	method: 'GET',
+	    });
+	    if (response.ok) {
+	        const res = await response.json();
+	        console.log(res);
+	    } else {
+	        console.error('Erreur lors de l\'envoi du message');
+	    }
+	  	} catch (error) {
+	    	console.error('Erreur lors de l\'envoi du message:', error);
+	  	}
+	}
 
 
-  const checkForm = async (e) => {
+	const checkForm = async (e) => {
     e.preventDefault();
     const validator = {
         username: checkData.validateUsername,

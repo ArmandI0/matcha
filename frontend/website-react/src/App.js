@@ -5,6 +5,7 @@ import LoginForm from './features/login/LoginForm';
 import Footer from './components/Footer/Footer';
 import './App.css';
 import PrimarySearchAppBar from './features/NavBar/NavBar';
+import UseTest from './pages/test/test';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/chat" element={<Chat />} />
+            <Route path="/test" element={<UseTest />} />
           </Routes>
         </div>
         <Footer />
