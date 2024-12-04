@@ -1,4 +1,4 @@
-import jwt, { verify } from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 
 const jwtToken = {
     async create(infos) {
@@ -7,11 +7,20 @@ const jwtToken = {
             process.env.JWT_KEY,
             {expiresIn: '24h'}
         );
+        console.log('CREATION DU JWT TOKEN =>');
+        console.log(newToken);
         return newToken;
     },
 
-    async verify() {
-        
+    async verifyAuthentification(token) {
+        try {
+            const decoded = jwt.verify(token, process.env.JWT_KEY);
+            return decoded
+        }
+        catch(error) {
+            console.log('Error :' + error);
+        }
     }
-
 }
+
+export default jwtToken;

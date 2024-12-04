@@ -23,6 +23,23 @@ export default function RegisterForm() {
     firstName: ''
   });
 
+  const fetchAPI = async (e) => {
+    try {
+      const response = await fetch('/test', {
+          method: 'GET',
+      });
+      if (response.ok) {
+          const res = await response.json();
+          console.log(res);
+      } else {
+          console.error('Erreur lors de l\'envoi du message');
+      }
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi du message:', error);
+    }
+  }
+
+
   const checkForm = async (e) => {
     e.preventDefault();
     const validator = {
@@ -123,6 +140,10 @@ export default function RegisterForm() {
             type="submit"
           />
         </form>
+        <ValidateButton
+            name='test'
+            onClick={fetchAPI}
+        />
         {/* rajouter une route  pour button link*/}
         <ButtonLink name="login"></ButtonLink> 
       </div>

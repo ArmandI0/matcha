@@ -2,6 +2,8 @@ import express from 'express'
 import routes from './routes/routing.js'
 import rtAuth from './routes/authRoute.js';
 import cookieParser from 'cookie-parser';
+import jwtToken from './services/jwtAuthenticate.js';
+import { decode } from 'jsonwebtoken';
 
 const app = express();
 
@@ -16,8 +18,11 @@ app.use('/auth', rtAuth);
 // function de test pour le backend
 app.get('/test', function (req, res) {
   // Cookies that have not been signed
-  console.log('Cookies: ', req.cookies.authToken);
-  return res.status(200)
+  jwtToken.verifyAuthentification(req.cookies.authToken);
+  return res.status(200).json({
+    test: 'test',
+    response: decode
+  });
 });
 
 // Routing
@@ -30,6 +35,6 @@ app.listen(PORT, () => {
 
 // Démarrage du serveur avec vérification de la DB
 
-// module.exports = app; => pas COMMONJS 
+// module.exports = app; => pas COMMONJS
 
 export {app}; // ESmodule

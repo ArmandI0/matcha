@@ -1,5 +1,6 @@
 import checkData from './validationFunction.js'
 import authController from '../controllers/authController/authController.js'
+import jwtToken from './jwtAuthenticate.js';
 
 const validForm = async(form) => {
     const validator = {
@@ -22,11 +23,13 @@ const validForm = async(form) => {
 }
 
 const isAuthenticated = async(req, res) => {
-    if (req.cookies.authToken) {
-    
+    const ret = await jwtToken.verifyAuthentification(req.cookies.authToken);
+    if (ret === false) {
+        return res.status(200).json({auth : false});
     }
-    else
-        return 
+    else {
+        return res.status(200).json({auth : true});     
+    }
 }
 
 const register = async (req, res) => {
@@ -38,7 +41,9 @@ const register = async (req, res) => {
         console.log(isValid); // Besoin de retourner une erreur
         return res.status(200).json(isValid);
     }
-    const token = authController.registerController.insertNewUser(req.body);
+    const token = await authController.registerController.insertNewUser(req.body);
+    console.log('Token dans la fonction register');
+    console.log(token);
     res.cookie('authToken', token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
@@ -56,6 +61,7 @@ const register = async (req, res) => {
 
 const auth = {
     register,
+    isAuthenticated,
 }
 
 export default auth;
