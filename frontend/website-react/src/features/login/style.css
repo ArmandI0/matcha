@@ -1,12 +1,34 @@
-.Form{
+.containerForm{
     display: flex;
     flex-direction: column;
     margin: auto;
     justify-content: center;
+    min-height: 50vh;
+    align-content: center;
+    align-items: center;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    background: #ffffffda;
+    max-width: 500px;
+    width: 90%;
+    margin: 40px auto;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
     align-items: center;
 }
 
-.title {
+.titleForm{
     text-align: center;       /* Centrer le texte du titre */
-    margin-bottom: 20px;      /* Espacement sous le titre */
+    margin-bottom: 20px;  
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: #fe3c72;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }

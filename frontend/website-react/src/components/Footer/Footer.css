@@ -1,6 +1,6 @@
 footer {
     background-color: #424242; /* Couleur de fond */
-    height: 50px;           /* Hauteur du footer */
+    height: 5vh;           /* Hauteur du footer */
     width: 110wh;            /* Occupe toute la largeur */
     display: flex;
     align-items: center;    /* Centre verticalement le contenu */

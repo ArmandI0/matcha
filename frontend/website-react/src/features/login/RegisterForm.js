@@ -101,8 +101,8 @@ export default function RegisterForm() {
  };
 
    return (
-      <div className="Form">
-        <h1 className="title">Register</h1>
+      <div className="containerForm">
+        <h1 className="titleForm">Register</h1>
         <form onSubmit={checkForm}>
           <InputField
             nameField="Username"
