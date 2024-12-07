@@ -5,16 +5,13 @@ import LoginForm from './features/login/LoginForm';
 import Footer from './components/Footer/Footer';
 import { AuthProvider } from './context/AuthContext';
 import './App.css';
-import PrimarySearchAppBar from './features/NavBar/NavBar';
 import { ProtectedRoute } from './components/Hook/ProtectedRoutes';
 import { Login, Register} from './pages/LoginPages';
 
 function App() {
   return (
     <AuthProvider>
-		<div className="app">
 			<BrowserRouter>
-					<div className="content">
 						<Routes>
 							<Route path="/" element={<Home />} />
 							<Route path="/login" element={<Login />} />
@@ -25,10 +22,7 @@ function App() {
 								</ProtectedRoute>
 								} />
 						</Routes>
-					</div>
-				<Footer />
 			</BrowserRouter>
-		</div>
 	</AuthProvider>
   );
 }	
