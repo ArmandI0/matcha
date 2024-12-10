@@ -4,6 +4,8 @@ import InputField from "../../components/InputField.js/InputField";
 import './style.css';
 import { useState } from "react";
 import checkData from "./validationFunction";
+import { useNavigate } from 'react-router-dom';
+
 
 export default function RegisterForm() {
 
@@ -84,6 +86,7 @@ export default function RegisterForm() {
                 }              
                 else {
                   console.log('ENTREE VALID');
+
                 }
                 console.log(res);
             } else {
@@ -140,12 +143,8 @@ export default function RegisterForm() {
             type="submit"
           />
         </form>
-        <ValidateButton
-            name='test'
-            onClick={fetchAPI}
-        />
         {/* rajouter une route  pour button link*/}
-        <ButtonLink name="login"></ButtonLink> 
+          <ButtonLink name="login" path="/login"></ButtonLink> 
       </div>
     );
 }

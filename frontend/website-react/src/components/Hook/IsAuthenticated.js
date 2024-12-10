@@ -1,8 +1,5 @@
-import { useState } from "react";
 
 export default async function IsAuthenticated() {
-    const [auth, setAuth] = useState(false);
-
     try {
         const response = await fetch('/test', {
             method: 'GET',

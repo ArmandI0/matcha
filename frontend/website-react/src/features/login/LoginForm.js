@@ -2,11 +2,14 @@ import ValidateButton from "../../components/Button/ValidateButton";
 import ButtonLink from "../../components/Button/ButtonLink";
 import InputField from "../../components/InputField.js/InputField";
 import './style.css';
-import { useState } from "react";
+import { useContext, useState } from "react";
 import checkData from "./validationFunction";
+import { useNavigate } from 'react-router-dom';
+import {AuthContext} from '../../context/AuthContext'
 
 export default function LoginForm() {
-
+    const { login } = useContext(AuthContext);
+    const navigate = useNavigate();
   	const [formData, setFormData] = useState({
   	  username: '',
   	  password: '',
@@ -51,10 +54,10 @@ export default function LoginForm() {
             console.log('response ======================');
             if (response.ok) {
                 const res = await response.json();
-                if (res.error === true) {
-                  console.log('RETOUR TABLEAU DERREUR');
-                  setErrors({...errors, [res.field]: res.message});
-                  console.log(errors);
+                if (res.login === true) {
+                  console.log('Login sucess');
+                  navigate('/home');
+                  login(res); 
                 }              
                 else {
                   console.log('ENTREE VALID');
@@ -67,11 +70,6 @@ export default function LoginForm() {
             console.error('Erreur lors de l\'envoi du message:', error);
         }
     }
- 
-    console.log('ERROR ==');
-    console.log(errors);
-    console.log(formData);
-    console.log(error);
  };
 
    return (
@@ -97,7 +95,7 @@ export default function LoginForm() {
           />
         </form>
         {/* rajouter une route  pour button link*/}
-        <ButtonLink name="login"></ButtonLink> 
+        <ButtonLink name="register" path="/register"></ButtonLink> 
       </div>
     );
 }

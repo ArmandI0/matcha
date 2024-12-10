@@ -78,7 +78,13 @@ export default function NavBar() {
   const handleMobileMenuOpen = (event) => setMobileMoreAnchorEl(event.currentTarget);
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ 
+      flexGrow: 1, 
+      maxHeight: '64px',
+      '& .MuiBox-root': {
+        maxHeight: '64px'
+      }
+      }}>
       <StyledAppBar position="static">
         <Toolbar>
           <StyledIconButton
@@ -95,7 +101,6 @@ export default function NavBar() {
           </BrandLink>
 
           <Box sx={{ flexGrow: 1 }} />
-          
           <DesktopMenu>
             <StyledIconButton size="large" onClick={handleMailClick}>
               <StyledBadge badgeContent={0}>

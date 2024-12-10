@@ -11,18 +11,18 @@ import { Login, Register} from './pages/LoginPages';
 function App() {
   return (
     <AuthProvider>
-			<BrowserRouter>
-						<Routes>
-							<Route path="/" element={<Home />} />
-							<Route path="/login" element={<Login />} />
-							<Route path="/register" element={<Register />} />
-							<Route path="/chat" element={
-								<ProtectedRoute>
-									<Chat />
-								</ProtectedRoute>
-								} />
-						</Routes>
-			</BrowserRouter>
+		<BrowserRouter>
+			<Routes>
+				<Route path="/home" element={<Home />} />
+				<Route path="/login" element={<Login />} />
+				<Route path="/register" element={<Register />} />
+				<Route path="/chat" element={
+					<ProtectedRoute>
+						<Chat />
+					</ProtectedRoute>
+					} />
+			</Routes>
+		</BrowserRouter>
 	</AuthProvider>
   );
 }	
