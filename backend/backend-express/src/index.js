@@ -16,14 +16,14 @@ app.use(cookieParser())
 app.use('/auth', rtAuth);
 
 // function de test pour le backend
-app.get('/test', function (req, res) {
-  // Cookies that have not been signed
-  jwtToken.verifyAuthentification(req.cookies.authToken);
-  return res.status(200).json({
-    test: 'test',
-    response: decode
-  });
-});
+// app.get('/test', function (req, res) {
+//   // Cookies that have not been signed
+//   jwtToken.verifyAuthentification(req.cookies.authToken);
+//   return res.status(200).json({
+//     test: 'test',
+//     response: decode
+//   });
+// });
 
 // Routing
 app.use('/api', routes);

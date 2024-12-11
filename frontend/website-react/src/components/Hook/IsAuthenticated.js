@@ -1,7 +1,7 @@
 
 export default async function IsAuthenticated() {
     try {
-        const response = await fetch('/test', {
+        const response = await fetch('/auth/authenticated', {
             method: 'GET',
         });
         if (response.ok) {

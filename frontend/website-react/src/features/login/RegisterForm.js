@@ -8,8 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 export default function RegisterForm() {
-
-  	const [fomIsValid, setValidation] = useState(false);
+    const navigate = useNavigate();
   	const [formData, setFormData] = useState({
   	  username: '',
   	  email: '',
@@ -85,8 +84,7 @@ export default function RegisterForm() {
                   console.log(errors);
                 }              
                 else {
-                  console.log('ENTREE VALID');
-
+                  navigate('/login');
                 }
                 console.log(res);
             } else {
