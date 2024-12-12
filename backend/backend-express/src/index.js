@@ -1,40 +1,52 @@
-import express from 'express'
-import routes from './routes/routing.js'
+import express from 'express';
+import routes from './routes/routing.js';
 import rtAuth from './routes/authRoute.js';
 import cookieParser from 'cookie-parser';
 import jwtToken from './services/jwtAuthenticate.js';
 import { decode } from 'jsonwebtoken';
+import { Server } from 'socket.io'; 
+import { createServer } from 'http'; 
 
 const app = express();
+const PORT = process.env.PORT || 5000; // Définit un port par défaut
 
-//Convertie les json
+// Convertie les JSON
 app.use(express.json());
-//Ajoute les cookies a req.cookies
-app.use(cookieParser())
+// Ajoute les cookies à req.cookies
+app.use(cookieParser());
 
-
+// Routes pour l'authentification et l'API
 app.use('/auth', rtAuth);
-
-// function de test pour le backend
-// app.get('/test', function (req, res) {
-//   // Cookies that have not been signed
-//   jwtToken.verifyAuthentification(req.cookies.authToken);
-//   return res.status(200).json({
-//     test: 'test',
-//     response: decode
-//   });
-// });
-
-// Routing
 app.use('/api', routes);
 
-const PORT = process.env.PORT;
-app.listen(PORT, () => {
-  console.log('Server is running on port 3000');
+// Crée le serveur HTTP
+const server = createServer(app);
+
+// Intègre Socket.IO avec le serveur HTTP existant
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000", // URL de ton front-end
+    methods: ["GET", "POST"],
+  },
 });
 
-// Démarrage du serveur avec vérification de la DB
+// Gestion des connexions Socket.IO
+io.on('connection', (socket) => {
+  console.log(`Nouvelle connexion : ${socket.id}`);
 
-// module.exports = app; => pas COMMONJS
+  socket.on('message', (data) => {
+    console.log(`Message reçu : ${data}`);
+    io.emit('message', data); // Réémet le message à tous les clients connectés
+  });
 
-export {app}; // ESmodule
+  socket.on('disconnect', () => {
+    console.log(`Déconnexion : ${socket.id}`);
+  });
+});
+
+// Lance le serveur HTTP (Express + Socket.IO)
+server.listen(PORT, () => {
+  console.log(`Serveur API et Socket.IO démarré sur http://localhost:${PORT}`);
+});
+
+export { app }; // ESModules
