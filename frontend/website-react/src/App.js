@@ -1,13 +1,19 @@
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import Chat from "./pages/chat/Chat"
-import Home from "./pages/register/Home";
-import LoginForm from './features/login/LoginForm';
-import Footer from './components/Footer/Footer';
+import Home from "./pages/home/Home";
+import './App.css'
 import { AuthProvider } from './context/AuthContext';
-import './App.css';
 import { ProtectedRoute } from './components/Hook/ProtectedRoutes';
-import { Login, Register} from './pages/LoginPages';
+import { LoginRoute } from './components/Hook/LoginRoutes'
+import { Login, Register} from './pages/login/LoginPages';
 
+function LoginRoutes() {
+	return (
+		<LoginRoute>
+			<Outlet/>
+		</LoginRoute>
+	);
+}
 
 function ProtectedRoutes() {
 	return (
@@ -22,8 +28,12 @@ function App() {
     <AuthProvider>
 		<BrowserRouter>
 			<Routes>
-				<Route path="/login" element={<Login />} />
-				<Route path="/register" element={<Register />} />
+				{/* Route non authentifie */}
+				<Route element={<LoginRoutes/>}>
+					<Route path="/login" element={<Login />} />
+					<Route path="/register" element={<Register />} />
+				</Route>
+				{/* Route authentifie */}
 				<Route element={<ProtectedRoutes/>}>
 					<Route path="/home" element={<Home />} />
 					<Route path="/chat" element={<Chat />} />

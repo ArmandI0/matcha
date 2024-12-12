@@ -8,6 +8,8 @@ import {
   Menu as MenuIcon, AccountCircle, Mail as MailIcon,
   Notifications as NotificationsIcon, MoreVert as MoreIcon 
 } from '@mui/icons-material';
+import Cookies from 'js-cookie';
+
 
 const StyledAppBar = styled(AppBar)({
   backgroundColor: 'var(--background-transparent)',
@@ -75,6 +77,11 @@ export default function NavBar() {
     setAnchorEl(null);
     setMobileMoreAnchorEl(null);
   };
+  	const handlelogout = () => {
+		document.cookie = 'authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+		navigate('/login');
+	};
+
   const handleMobileMenuOpen = (event) => setMobileMoreAnchorEl(event.currentTarget);
 
   return (
@@ -176,7 +183,7 @@ export default function NavBar() {
       >
         <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
         <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-        <MenuItem onClick={handleMenuClose}>logout</MenuItem>
+        <MenuItem onClick={handlelogout}>logout</MenuItem>
       </StyledMenu>
     </Box>
   );

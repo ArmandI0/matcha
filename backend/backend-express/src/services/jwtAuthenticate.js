@@ -15,10 +15,11 @@ const jwtToken = {
     async verifyAuthentification(token) {
         try {
             const decoded = jwt.verify(token, process.env.JWT_KEY);
-            return decoded
+            return decoded;
         }
         catch(error) {
             console.log('Error :' + error);
+            return false;
         }
     }
 }

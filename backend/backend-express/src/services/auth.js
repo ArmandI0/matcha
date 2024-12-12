@@ -43,12 +43,11 @@ const validLoginForm = async(form) => {
 
 const isAuthenticated = async(req, res) => {
     const ret = await jwtToken.verifyAuthentification(req.cookies.authToken);
-    console.log('isAuthenticated Backend');
     if (ret === false) {
         return res.status(200).json({auth : false});
     }
     else {
-        return res.status(200).json({auth : true});     
+        return res.status(200).json({auth : true});
     }
 }
 

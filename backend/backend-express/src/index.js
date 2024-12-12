@@ -24,7 +24,7 @@ app.use('/auth', rtAuth);
 //     response: decode
 //   });
 // });
-
+  
 // Routing
 app.use('/api', routes);
 
