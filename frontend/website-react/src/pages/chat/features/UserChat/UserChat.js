@@ -6,8 +6,26 @@ import './UserChat.css';
 function UserChat({ selectedUser }) {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
-    const currentUserId = 'e7b2e100-9a69-4d81-9685-3885f50c4cb3'; // Hard code
+    const currentUserId = '0d510e6b-0968-4ec3-9fa7-b7a1fa4e3d46'; // Hard code
+    const [socket, setSocket] = useState(null);
+    const MAX_MESSAGE_LENGTH = 200; // Limite de caractères
 
+    // Initialisation du socket
+    useEffect(() => {
+        const newSocket = io('http://localhost:5000'); // URL du serveur backend
+        newSocket.on('connect', () => {
+            console.log('Connecté au serveur');
+            newSocket.emit('message', { message: 'Hello depuis le client de test' });
+        });
+        setSocket(newSocket);
+
+        // Nettoyer à la désinstallation
+        return () => {
+            newSocket.disconnect();
+        };
+    }, []);
+
+    // Récupération des messages via l'API au chargement
     useEffect(() => {
         const fetchMessages = async () => {
             if (selectedUser && selectedUser.user2_id) {
