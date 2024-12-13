@@ -17,7 +17,7 @@ const formatDate = (date) => {
 
 function UsersList({ onUserClick }) {
     const [conversations, setConversations] = useState([]);
-    const currentUserId = '0cae4616-d1b9-4689-adc5-233f10e9e577';
+    const currentUserId = '0d510e6b-0968-4ec3-9fa7-b7a1fa4e3d46';
     useEffect(() => {
         const fetchConversations = async () => {
             try {

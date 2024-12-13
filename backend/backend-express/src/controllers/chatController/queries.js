@@ -38,7 +38,9 @@ const queries = {
             JOIN 
                 user_profiles u2 ON c.user2_id = u2.user_id
             WHERE 
-                c.user1_id = $1 OR c.user2_id = $1;
+                c.user1_id = $1 OR c.user2_id = $1
+            ORDER BY
+                c.last_activity DESC;
     `,
 };
 
