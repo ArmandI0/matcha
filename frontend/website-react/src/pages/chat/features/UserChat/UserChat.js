@@ -6,8 +6,9 @@ import './UserChat.css';
 function UserChat({ selectedUser }) {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
-    const currentUserId = '7ce2a6e5-8017-41da-ac84-853b81b4b179'; // Hard code
+    const currentUserId = '0d510e6b-0968-4ec3-9fa7-b7a1fa4e3d46'; // Hard code
     const [socket, setSocket] = useState(null);
+    const MAX_MESSAGE_LENGTH = 200; // Limite de caractères
 
     // Initialisation du socket
     useEffect(() => {
@@ -88,6 +89,14 @@ function UserChat({ selectedUser }) {
         }
     };
 
+    // Gestion de la limite de caractères
+    const handleInputChange = (e) => {
+        const input = e.target.value;
+        if (input.length <= MAX_MESSAGE_LENGTH) {
+            setNewMessage(input);
+        }
+    };
+
     return (
         <div className="chat-window">
             {selectedUser ? (
@@ -98,10 +107,13 @@ function UserChat({ selectedUser }) {
                         <input
                             type="text"
                             value={newMessage}
-                            onChange={(e) => setNewMessage(e.target.value)}
+                            onChange={handleInputChange}
                             placeholder="Tapez un message..."
                         />
                         <button onClick={handleSendMessage}><i className="fa-solid fa-arrow-up"></i></button>
+                    </div>
+                    <div className="char-counter">
+                        {newMessage.length}/{MAX_MESSAGE_LENGTH}
                     </div>
                 </>
             ) : (
