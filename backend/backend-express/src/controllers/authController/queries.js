@@ -12,7 +12,19 @@ const authQueries = {
 
         checkIfEmailAlreadyExist:`
             SELECT EXISTS(SELECT 1 FROM users WHERE email = $1) as exist;
-            `
+            `,
+
+        getUserByUsername:`
+            SELECT
+                id,
+                username,
+                email,
+                password
+            FROM
+                users
+            WHERE
+                username = $1;
+            `,
     },
 
     userProfile:

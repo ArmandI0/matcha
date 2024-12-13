@@ -4,26 +4,44 @@ import InputField from "../../components/InputField.js/InputField";
 import './style.css';
 import { useState } from "react";
 import checkData from "./validationFunction";
+import { useNavigate } from 'react-router-dom';
+
 
 export default function RegisterForm() {
+    const navigate = useNavigate();
+  	const [formData, setFormData] = useState({
+  	  username: '',
+  	  email: '',
+  	  password: '',
+  	  lastName: '',
+  	  firstName: ''
+  	});
+  	const [errors, setErrors] = useState({
+		username: '',
+		email: '',
+		password: '',
+		lastName: '',
+		firstName: ''
+  	});
 
-  const [fomIsValid, setValidation] = useState(false);
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-    lastName: '',
-    firstName: ''
-  });
-  const [errors, setErrors] = useState({
-    username: '',
-    email: '',
-    password: '',
-    lastName: '',
-    firstName: ''
-  });
+	const fetchAPI = async (e) => {
+		try {
+	    	const response = await fetch('/test', {
+	      	method: 'GET',
+	    });
+	    if (response.ok) {
+	        const res = await response.json();
+	        console.log(res);
+	    } else {
+	        console.error('Erreur lors de l\'envoi du message');
+	    }
+	  	} catch (error) {
+	    	console.error('Erreur lors de l\'envoi du message:', error);
+	  	}
+	}
 
-  const checkForm = async (e) => {
+
+	const checkForm = async (e) => {
     e.preventDefault();
     const validator = {
         username: checkData.validateUsername,
@@ -66,7 +84,7 @@ export default function RegisterForm() {
                   console.log(errors);
                 }              
                 else {
-                  console.log('ENTREE VALID');
+                  navigate('/login');
                 }
                 console.log(res);
             } else {
@@ -84,8 +102,8 @@ export default function RegisterForm() {
  };
 
    return (
-      <div className="Form">
-        <h1 className="title">Register</h1>
+      <div className="containerForm">
+        <h1 className="titleForm">Register</h1>
         <form onSubmit={checkForm}>
           <InputField
             nameField="Username"
@@ -124,7 +142,7 @@ export default function RegisterForm() {
           />
         </form>
         {/* rajouter une route  pour button link*/}
-        <ButtonLink name="login"></ButtonLink> 
+          <ButtonLink name="login" path="/login"></ButtonLink> 
       </div>
     );
 }

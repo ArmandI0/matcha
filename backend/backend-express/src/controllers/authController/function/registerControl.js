@@ -1,9 +1,8 @@
+import errManagement from '../../../config/errorsManagement.js';
 import database from '../../../config/database.js'
 import queries from '../queries.js'
 import bcrypt from 'bcrypt'
 import { v4 as uuidv4 } from 'uuid';
-import jwt from 'jsonwebtoken'
-import errManagement from '../../../config/errorsManagement.js';
     
 const registerController = {
     async insertNewUser(form) {
@@ -12,12 +11,8 @@ const registerController = {
             const password = bcrypt.hashSync(form.password, 10);
             await database.query(queries.userManagement.setUser, [form.username, form.email, password, id]);
             await database.query(queries.userProfile.setName, [id, form.firstName, form.lastName]);
-            const token = jwt.sign(
-                {id: id, username: form.username},
-                process.env.JWT_KEY,
-                { expiresIn: '24h' }
-            );
-            return token;
+            // const token = jwtToken.create({id: id, username: form.username});
+            return true;
         }
         catch(error) {
             throw errManagement.handleDatabaseError(error);

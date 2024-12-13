@@ -1,16 +1,6 @@
 /* App.css */
 @import './assets/variables.css';
 
-.app {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.content {
-  flex: 1;
-}
-
 body {
   margin: 0;
   padding: 0;

@@ -1,32 +1,77 @@
+.navbar-container {
+  flex-grow: 1;
+}
+
+/* AppBar Styles */
 .MuiAppBar-root {
-    background-color: var(--background-color) !important;
+  background-color: var(--background-color) !important;
+  color: var(--primary-color);
+}
+
+/* Brand Link */
+.brand-link {
+  text-decoration: none;
+}
+
+.brand-text {
+  display: none;
+  font-family: 'Gotham-Medium', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: hwb(0 100% 0% / 0.342) !important;
+}
+
+@media (min-width: 600px) {
+  .brand-text {
+    display: block;
   }
-
-.MuiAppBar-root{
-    color: var(--primary-color);
 }
 
-.MuiAppBar-root .MuiTypography-root,
-.MuiAppBar-root .MuiInputBase-root {
-  color:  	var(--primary-color);
+/* Menu Buttons */
+.menu-button {
+  margin-right: 16px;
 }
 
+/* Icons and Badges */
 .MuiIconButton-root .MuiSvgIcon-root {
-    color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 .MuiBadge-badge {
-    background-color: var(--secondary-color);
+  background-color: var(--secondary-color);
 }
 
+/* Desktop Menu */
+.desktop-menu {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .desktop-menu {
+    display: flex;
+  }
+}
+
+/* Mobile Menu */
+.mobile-menu-button {
+  display: flex;
+}
+
+@media (min-width: 900px) {
+  .mobile-menu-button {
+    display: none;
+  }
+}
+
+/* Menus */
 .MuiMenu-paper {
-    background-color: var(--background-color) !important;
+  background-color: var(--background-color) !important;
 }
 
 .MuiMenuItem-root {
- color: var(--secondary-color) !important;
+  color: var(--secondary-color) !important;
 }
 
 .MuiMenuItem-root:hover {
- background-color: var(--accents-color) !important;
+  background-color: var(--accents-color) !important;
 }

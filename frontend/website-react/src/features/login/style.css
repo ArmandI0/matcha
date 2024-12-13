@@ -1,12 +1,36 @@
-.Form{
+.containerForm{
     display: flex;
     flex-direction: column;
-    margin: auto;
     justify-content: center;
+    min-height: fit-content; /* Au lieu de 50vh */
+    height: auto;
+    min-width: fit-content;
+    width: 20vw;
+    align-content: center;
     align-items: center;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    background: #ffffffda;
+    max-width: 500px;
+    padding: 2rem;
 }
 
-.title {
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-block-start: 10px;
+    margin-block-end: 10px;
+}
+
+.titleForm{
     text-align: center;       /* Centrer le texte du titre */
-    margin-bottom: 20px;      /* Espacement sous le titre */
+    margin-bottom: 20px;  
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: #fe3c72;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }

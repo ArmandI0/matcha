@@ -1,26 +1,48 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import Chat from "./pages/chat/Chat"
-import Home from "./pages/register/Home";
-import LoginForm from './features/login/LoginForm';
-import Footer from './components/Footer/Footer';
-import './App.css';
-import PrimarySearchAppBar from './features/NavBar/NavBar';
+import Home from "./pages/home/Home";
+import './App.css'
+import { AuthProvider } from './context/AuthContext';
+import { ProtectedRoute } from './components/Hook/ProtectedRoutes';
+import { LoginRoute } from './components/Hook/LoginRoutes'
+import { Login, Register} from './pages/login/LoginPages';
+
+function LoginRoutes() {
+	return (
+		<LoginRoute>
+			<Outlet/>
+		</LoginRoute>
+	);
+}
+
+function ProtectedRoutes() {
+	return (
+	  <ProtectedRoute>
+		<Outlet/> 
+	  </ProtectedRoute>
+	);
+  }
 
 function App() {
   return (
-    <div className="app">
-      <BrowserRouter>
-        <PrimarySearchAppBar></PrimarySearchAppBar>
-        <div className="content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/chat" element={<Chat />} />
-          </Routes>
-        </div>
-        <Footer />
-      </BrowserRouter>
-    </div>
+    <AuthProvider>
+		<BrowserRouter>
+			<Routes>
+				{/* Route non authentifie */}
+				<Route element={<LoginRoutes/>}>
+					<Route path="/login" element={<Login />} />
+					<Route path="/register" element={<Register />} />
+				</Route>
+				{/* Route authentifie */}
+				<Route element={<ProtectedRoutes/>}>
+					<Route path="/home" element={<Home />} />
+					<Route path="/chat" element={<Chat />} />
+					<Route path="/" element={<Home />} />
+				</Route>
+			</Routes>
+		</BrowserRouter>
+	</AuthProvider>
   );
-}
+}	
 
 export default App;

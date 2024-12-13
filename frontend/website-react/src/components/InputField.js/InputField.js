@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 function InputField(props) {
     return (
         <Box
-          sx={{ '& > :not(style)': {width: '25ch', marginBottom: '5px' , marginTop: '5px'} }}
+          sx={{ '& > :not(style)': {width: '20ch', marginBottom: '5px' , marginTop: '5px'} }}
           noValidate
           autoComplete="off"
         >

@@ -1,198 +1,190 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
-import Badge from '@mui/material/Badge';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
-import './NavBar.css'
-import { useNavigate, Link } from 'react-router-dom'; // Ajout de Link pour la navigation
+import { useNavigate, Link } from 'react-router-dom';
+import { styled } from '@mui/material/styles';
+import logout from '../../components/Hook/logout';
+import { 
+  AppBar, Box, Toolbar, IconButton, Typography, Badge, MenuItem, Menu 
+} from '@mui/material';
+import { 
+  Menu as MenuIcon, AccountCircle, Mail as MailIcon,
+  Notifications as NotificationsIcon, MoreVert as MoreIcon 
+} from '@mui/icons-material';
 
-export default function PrimarySearchAppBar() {
+const StyledAppBar = styled(AppBar)({
+  backgroundColor: 'var(--background-transparent)',
+  color: 'var(--primary-color)',
+  width: '100vw'
+});
+
+const BrandLink = styled(Link)({
+  textDecoration: 'none'
+});
+
+const BrandText = styled(Typography)({
+  fontFamily: 'Gotham-Medium, sans-serif',
+  fontSize: '24px',
+  fontWeight: 700,
+  color: 'var(--primary-color)',
+  display: 'none',
+  '@media (min-width: 600px)': {
+    display: 'block'
+  }
+});
+
+const DesktopMenu = styled(Box)({
+  display: 'none',
+  '@media (min-width: 900px)': {
+    display: 'flex'
+  }
+});
+
+const StyledMenu = styled(Menu)({
+  '& .MuiPaper-root': {
+    backgroundColor: 'var(--background-color)'
+  },
+  '& .MuiMenuItem-root': {
+    color: 'var(--secondary-color)',
+    '&:hover': {
+      backgroundColor: 'var(--accents-color)'
+    }
+  }
+});
+
+const StyledIconButton = styled(IconButton)({
+  '& .MuiSvgIcon-root': {
+    color: 'var(--primary-color)'
+  }
+});
+
+const StyledBadge = styled(Badge)({
+  '& .MuiBadge-badge': {
+    backgroundColor: 'var(--secondary-color)'
+  }
+});
+
+export default function NavBar() {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-  
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const menuId = 'primary-search-account-menu';
+  const mobileMenuId = 'primary-search-account-menu-mobile';
 
-  const handleMailClick = () => {
-    navigate('/chat');
-  };
-
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
+  const handleMailClick = () => navigate('/chat');
+  const handleProfileMenuOpen = (event) => setAnchorEl(event.currentTarget);
   const handleMenuClose = () => {
     setAnchorEl(null);
-    handleMobileMenuClose();
+    setMobileMoreAnchorEl(null);
   };
+  	const handlelogout = async () => {
+      const status = await logout();
+      if (status === true)
+        navigate('/login');
+	};
 
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
-
-  const menuId = 'primary-search-account-menu';
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-    </Menu>
-  );
-
-  const mobileMenuId = 'primary-search-account-menu-mobile';
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit" >
-          <Badge badgeContent={0}>
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={0}>
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-    </Menu>
-  );
+  const handleMobileMenuOpen = (event) => setMobileMoreAnchorEl(event.currentTarget);
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <Box sx={{ 
+      flexGrow: 1, 
+      maxHeight: '64px',
+      '& .MuiBox-root': {
+        maxHeight: '64px'
+      }
+      }}>
+      <StyledAppBar position="static">
         <Toolbar>
-          <IconButton
+          <StyledIconButton
             size="large"
             edge="start"
-            color="inherit"
             aria-label="open drawer"
             sx={{ mr: 2 }}
           >
             <MenuIcon />
-          </IconButton>
-          <Link to="/" style={{ textDecoration: 'none' }}> {}
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ 
-                display: { xs: 'none', sm: 'block' },
-                fontFamily: 'Gotham-Medium, sans-serif',
-                fontSize: '24px',
-                fontWeight: 700,
-                color: '#9290C3'
-              }}
-            >
-              MATCHA
-            </Typography>
-          </Link>
+          </StyledIconButton>
+          
+          <BrandLink to="/">
+            <BrandText>MATCHA</BrandText>
+          </BrandLink>
+
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={handleMailClick}>
-              <Badge badgeContent={0 /*BRUT MAIL*/}>
+          <DesktopMenu>
+            <StyledIconButton size="large" onClick={handleMailClick}>
+              <StyledBadge badgeContent={0}>
                 <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={1 /*BRUT NOTIF*/}>
+              </StyledBadge>
+            </StyledIconButton>
+            
+            <StyledIconButton size="large">
+              <StyledBadge badgeContent={1}>
                 <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
+              </StyledBadge>
+            </StyledIconButton>
+            
+            <StyledIconButton
               size="large"
               edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
               onClick={handleProfileMenuOpen}
-              color="inherit"
+              aria-controls={menuId}
             >
               <AccountCircle />
-            </IconButton>
-          </Box>
+            </StyledIconButton>
+          </DesktopMenu>
+
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
+            <StyledIconButton
               size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
               onClick={handleMobileMenuOpen}
-              color="inherit"
+              aria-controls={mobileMenuId}
             >
               <MoreIcon />
-            </IconButton>
+            </StyledIconButton>
           </Box>
         </Toolbar>
-      </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
+      </StyledAppBar>
+
+      <StyledMenu
+        anchorEl={mobileMoreAnchorEl}
+        id={mobileMenuId}
+        keepMounted
+        open={Boolean(mobileMoreAnchorEl)}
+        onClose={handleMenuClose}
+      >
+        <MenuItem>
+          <StyledIconButton size="large">
+            <StyledBadge badgeContent={0}>
+              <MailIcon />
+            </StyledBadge>
+          </StyledIconButton>
+          <p>Messages</p>
+        </MenuItem>
+        <MenuItem>
+          <StyledIconButton size="large">
+            <StyledBadge badgeContent={1}>
+              <NotificationsIcon />
+            </StyledBadge>
+          </StyledIconButton>
+          <p>Notifications</p>
+        </MenuItem>
+        <MenuItem onClick={handleProfileMenuOpen}>
+          <StyledIconButton size="large">
+            <AccountCircle />
+          </StyledIconButton>
+          <p>Profile</p>
+        </MenuItem>
+      </StyledMenu>
+
+      <StyledMenu
+        anchorEl={anchorEl}
+        id={menuId}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+      >
+        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+        <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+        <MenuItem onClick={handlelogout}>logout</MenuItem>
+      </StyledMenu>
     </Box>
   );
 }
