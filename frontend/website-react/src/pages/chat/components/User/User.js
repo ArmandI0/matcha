@@ -2,7 +2,7 @@ import React from 'react';
 import './User.css';
 
 function User({ name, lastMessage, date, onClick }) {
-    return (
+    return (     
         <div className="user" onClick={onClick}>
             <i className="fa-solid fa-user"></i>
             <div className="user-details">
