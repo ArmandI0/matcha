@@ -107,10 +107,23 @@ const login = async(req, res) => {
     })
 }
 
+const logout = async (req, res) => {
+    console.log('dans la funciotn logout backend');
+    res.clearCookie('authToken', {
+      httpOnly: true,
+      secure: true,
+      path: '/',
+      sameSite: 'strict'
+    });
+    
+    res.status(200).json({ message: 'Déconnecté avec succès' });
+}
+
 const auth = {
     register,
     isAuthenticated,
     login,
+    logout,
 }
 
 export default auth;
