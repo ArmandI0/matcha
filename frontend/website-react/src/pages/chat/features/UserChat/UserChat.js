@@ -1,12 +1,30 @@
 import React, { useState, useEffect } from 'react';
+import { io } from 'socket.io-client'; // Import de Socket.IO
 import Message from '../../components/Message/Message';
 import './UserChat.css';
 
 function UserChat({ selectedUser }) {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
-    const currentUserId = 'dffe89c6-297a-4715-93c3-84c100c74670'; // Hard code
+    const currentUserId = '7ce2a6e5-8017-41da-ac84-853b81b4b179'; // Hard code
+    const [socket, setSocket] = useState(null);
 
+    // Initialisation du socket
+    useEffect(() => {
+        const newSocket = io('http://localhost:5000'); // URL du serveur backend
+        newSocket.on('connect', () => {
+            console.log('Connecté au serveur');
+            newSocket.emit('message', { message: 'Hello depuis le client de test' });
+        });
+        setSocket(newSocket);
+
+        // Nettoyer à la désinstallation
+        return () => {
+            newSocket.disconnect();
+        };
+    }, []);
+
+    // Récupération des messages via l'API au chargement
     useEffect(() => {
         const fetchMessages = async () => {
             if (selectedUser && selectedUser.user2_id) {
@@ -28,12 +46,23 @@ function UserChat({ selectedUser }) {
         fetchMessages();
     }, [selectedUser, currentUserId]);
 
+    // Écouter les messages reçus via Socket.IO
+    useEffect(() => {
+        if (socket) {
+            socket.on('receive-message', (message) => {
+                console.log('Message reçu via socket:', message);
+                setMessages((prevMessages) => [...prevMessages, message]);
+            });
+        }
+    }, [socket]);
+
+    // Gestion de l'envoi de message
     const handleSendMessage = async () => {
         if (newMessage.trim()) {
             const messageData = {
                 message: {
                     sender: {
-                        id: currentUserId, username: 'user1' // After authentification change the Hard code aranger
+                        id: currentUserId, username: 'user1' // After authentification change the Hard code
                     },
                     message: newMessage,
                 },
@@ -41,31 +70,23 @@ function UserChat({ selectedUser }) {
                     id: selectedUser.user2_id, username: selectedUser.user2_first_name
                 },
             };
-    
+
             try {
-                const response = await fetch('/api/chat/send-message', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(messageData),
-                });
-    
-                if (response.ok) {
-                    const sentMessage = await response.json();
-                    console.log("test = ", sentMessage);
-                    setMessages([...messages, sentMessage]);
-                    setNewMessage('');
-                } else {
-                    console.error('Erreur lors de l\'envoi du message');
-                }
+                // Envoi via Socket.IO
+                socket.emit('message', messageData);
+
+                // Mise à jour locale immédiate
+                setMessages((prevMessages) => [...prevMessages, {
+                    sender: { id: currentUserId, username: 'user1' },
+                    message: newMessage,
+                }]);
+
+                setNewMessage('');
             } catch (error) {
                 console.error('Erreur lors de l\'envoi du message:', error);
             }
         }
     };
-    
-    
 
     return (
         <div className="chat-window">

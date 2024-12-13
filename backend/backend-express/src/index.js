@@ -35,12 +35,16 @@ io.on('connection', (socket) => {
   console.log(`Nouvelle connexion : ${socket.id}`);
 
   socket.on('message', (data) => {
-    console.log(`Message reçu : ${data}`);
-    io.emit('message', data); // Réémet le message à tous les clients connectés
+      console.log(`Message reçu :`, data);
+      io.emit('message', data);
   });
 
   socket.on('disconnect', () => {
-    console.log(`Déconnexion : ${socket.id}`);
+      console.log(`Déconnexion : ${socket.id}`);
+  });
+
+  socket.on('error', (err) => {
+      console.error(`Erreur Socket.IO : ${err.message}`);
   });
 });
 
