@@ -1,5 +1,5 @@
-.loginPages {
-    background-image: url('./sun-woman-beautiful-dating-outdoors.jpg');
+.basicPage {
+    background-image: url('../assets/img/sun-woman-beautiful-dating-outdoors.jpg');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -12,14 +12,4 @@
     height: 100vh;
     width: 100vw;
     overflow-y: auto;
-}
-
-.content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    width: 100vw;
-    flex-direction: column;
-
 }

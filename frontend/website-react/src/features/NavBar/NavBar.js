@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
+import logout from '../../components/Hook/logout';
 import { 
   AppBar, Box, Toolbar, IconButton, Typography, Badge, MenuItem, Menu 
 } from '@mui/material';
@@ -75,6 +76,12 @@ export default function NavBar() {
     setAnchorEl(null);
     setMobileMoreAnchorEl(null);
   };
+  	const handlelogout = async () => {
+      const status = await logout();
+      if (status === true)
+        navigate('/login');
+	};
+
   const handleMobileMenuOpen = (event) => setMobileMoreAnchorEl(event.currentTarget);
 
   return (
@@ -176,7 +183,7 @@ export default function NavBar() {
       >
         <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
         <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-        <MenuItem onClick={handleMenuClose}>logout</MenuItem>
+        <MenuItem onClick={handlelogout}>logout</MenuItem>
       </StyledMenu>
     </Box>
   );

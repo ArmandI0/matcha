@@ -43,12 +43,11 @@ const validLoginForm = async(form) => {
 
 const isAuthenticated = async(req, res) => {
     const ret = await jwtToken.verifyAuthentification(req.cookies.authToken);
-    console.log('isAuthenticated Backend');
     if (ret === false) {
         return res.status(200).json({auth : false});
     }
     else {
-        return res.status(200).json({auth : true});     
+        return res.status(200).json({auth : true});
     }
 }
 
@@ -108,10 +107,23 @@ const login = async(req, res) => {
     })
 }
 
+const logout = async (req, res) => {
+    console.log('dans la funciotn logout backend');
+    res.clearCookie('authToken', {
+      httpOnly: true,
+      secure: true,
+      path: '/',
+      sameSite: 'strict'
+    });
+    
+    res.status(200).json({ message: 'Déconnecté avec succès' });
+}
+
 const auth = {
     register,
     isAuthenticated,
     login,
+    logout,
 }
 
 export default auth;
