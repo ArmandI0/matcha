@@ -1,6 +1,6 @@
-import checkData from './validationFunction.js'
-import authController from '../controllers/authController/authController.js'
-import jwtToken from './jwtAuthenticate.js';
+import checkData from './auth.parsing.js'
+import authController from './auth.controllers.js'
+import jwtToken from './auth.jwtFunctions.js';
 import bcrypt from 'bcrypt'
 import { v4 as uuidv4 } from 'uuid';
 
@@ -11,23 +11,6 @@ const validRegisterForm = async(form) => {
         password: checkData.validatePassword,
         lastName: checkData.validateName,
         firstName: checkData.validateName,
-    };
-
-    for (const field in validator) {
-        const validationFct = validator[field];
-        const value = form[field];
-        const status = await validationFct(value);
-        if (status.error === true) {
-            return status;
-        }
-    }
-    return true;
-}
-
-const validLoginForm = async(form) => {
-    const validator = {
-        username: checkData.validateUsername,
-        password: checkData.validatePassword,
     };
 
     for (const field in validator) {

@@ -1,8 +1,8 @@
 import express from 'express'
 import routes from './routes/routing.js'
-import rtAuth from './routes/authRoute.js';
+import rtAuth from './auth/auth.routes.js';
 import cookieParser from 'cookie-parser';
-import jwtToken from './services/jwtAuthenticate.js';
+import jwtToken from './auth/auth.jwtFunctions.js';
 import { decode } from 'jsonwebtoken';
 
 const app = express();

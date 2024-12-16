@@ -1,4 +1,4 @@
-import authController from "../controllers/authController/authController.js";
+import authController from "./auth.controllers.js"
 
 const checkData = {
     async validateEmail(email) {
