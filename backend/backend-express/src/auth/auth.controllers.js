@@ -45,16 +45,16 @@ const register = {
 const login = {
     async login(form) {
         try {
+            console.log('FONCTION LOGIN');
             console.log(form.username);
             const dataUser = await database.query(queries.userManagement.getUserByUsername, [form.username]);
             console.log(dataUser);
             const user = await dataUser.rows[0];
-            console.log(user.id);
-            console.log(user.username);
-            console.log(user.email);
+            console.log('user = ', user);
             return user;
         }
         catch(error) {
+            console.log('LOGIN ERROR:');
             throw errManagement.handleDatabaseError(error);
         }
     },

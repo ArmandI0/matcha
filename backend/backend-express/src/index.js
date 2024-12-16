@@ -12,8 +12,12 @@ app.use(express.json());
 //Ajoute les cookies a req.cookies
 app.use(cookieParser())
 
-
-app.use('/auth', rtAuth);
+try {
+  app.use('/auth', rtAuth);
+}
+catch (error) {
+  console.log('error :', error);
+}
 
 // function de test pour le backend
 // app.get('/test', function (req, res) {

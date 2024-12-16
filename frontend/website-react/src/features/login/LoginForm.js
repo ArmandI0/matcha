@@ -21,54 +21,32 @@ export default function LoginForm() {
 
 	const checkForm = async (e) => {
     e.preventDefault();
-    const validator = {
-        username: checkData.validateUsername,
-        password: checkData.validatePassword,
-    };
-
-    let error = false;
-    const newErrors = {};
-    
-    const validateData = async () => {
-        for (const field in validator) {
-            const validationFct = validator[field];
-            const value = formData[field];
-            newErrors[field] = await validationFct(value);
-            if (newErrors[field] !== '') error = true;
-        }
-    };
- 
-    
-    await validateData();
-    setErrors(newErrors);
-    
-    if (error === false) {
-        try {
-            const response = await fetch('/auth/login', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(formData),
-            });
-            console.log('response ======================');
-            console.log(response);
-            console.log('response ======================');
-            if (response.ok) {
-                const res = await response.json();
-                if (res.login === true) {
-                  console.log('Login sucess');
-                  navigate('/home');
-                  login(res); 
-                }              
-                else {
-                  console.log('ENTREE VALID');
-                }
-                console.log(res);
-            } else {
-                console.error('Erreur lors de l\'envoi du message');
+    try {
+        const response = await fetch('/auth/login', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(formData),
+        });
+        console.log('response ======================');
+        console.log(response);
+        console.log('response ======================');
+        if (response.ok) {
+            const res = await response.json();
+            if (res.login === true) {
+              console.log('Login sucess');
+              navigate('/home');
+              login(res); 
+            }              
+            else {
+              setErrors({...errors, [res.field]: res.message});
+              console.log('ENTREE VALID');
             }
-        } catch (error) {
-            console.error('Erreur lors de l\'envoi du message:', error);
+            console.log(res);
+        } else {
+            console.error('Erreur lors de l\'envoi du message');
         }
+    } catch (error) {
+        console.error('Erreur lors de l\'envoi du message:', error);
     }
  };
 

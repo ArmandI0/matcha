@@ -43,7 +43,7 @@ const register = async (req, res) => {
         console.log(isValid); // Besoin de retourner une erreur
         return res.status(200).json(isValid);
     }
-    const status = await authController.registerController.insertNewUser(req.body);
+    const status = await authController.register.insertNewUser(req.body);
     // console.log('Token dans la fonction register');
     // console.log(token);
     // res.cookie('authToken', token, {
@@ -67,7 +67,14 @@ const login = async(req, res) => {
     // if (isValid != true) {
     //     return res.status(200).json(isValid);
     // }
-    const User = await authController.loginController.login(req.body);
+    const User = await authController.login.login(req.body);
+    if (!User) {
+        return res.status(200).json({
+            login: false,
+            message: 'Invalid username',
+            field: 'username',
+        })
+    }
     const status = bcrypt.compareSync(req.body.password, User.password);
     if (status === true) {
         console.log('COUCOU');
@@ -87,6 +94,8 @@ const login = async(req, res) => {
     }
     return res.status(200).json({
         login: false,
+        message: 'Invalid password',
+        field: 'password',
     })
 }
 
