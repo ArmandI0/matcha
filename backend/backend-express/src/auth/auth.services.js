@@ -1,6 +1,6 @@
-import checkData from './validationFunction.js'
-import authController from '../controllers/authController/authController.js'
-import jwtToken from './jwtAuthenticate.js';
+import checkData from './auth.parsing.js'
+import authController from './auth.controllers.js'
+import jwtToken from './auth.jwtFunctions.js';
 import bcrypt from 'bcrypt'
 import { v4 as uuidv4 } from 'uuid';
 
@@ -11,23 +11,6 @@ const validRegisterForm = async(form) => {
         password: checkData.validatePassword,
         lastName: checkData.validateName,
         firstName: checkData.validateName,
-    };
-
-    for (const field in validator) {
-        const validationFct = validator[field];
-        const value = form[field];
-        const status = await validationFct(value);
-        if (status.error === true) {
-            return status;
-        }
-    }
-    return true;
-}
-
-const validLoginForm = async(form) => {
-    const validator = {
-        username: checkData.validateUsername,
-        password: checkData.validatePassword,
     };
 
     for (const field in validator) {
@@ -60,7 +43,7 @@ const register = async (req, res) => {
         console.log(isValid); // Besoin de retourner une erreur
         return res.status(200).json(isValid);
     }
-    const status = await authController.registerController.insertNewUser(req.body);
+    const status = await authController.register.insertNewUser(req.body);
     // console.log('Token dans la fonction register');
     // console.log(token);
     // res.cookie('authToken', token, {
@@ -84,7 +67,14 @@ const login = async(req, res) => {
     // if (isValid != true) {
     //     return res.status(200).json(isValid);
     // }
-    const User = await authController.loginController.login(req.body);
+    const User = await authController.login.login(req.body);
+    if (!User) {
+        return res.status(200).json({
+            login: false,
+            message: 'Invalid username',
+            field: 'username',
+        })
+    }
     const status = bcrypt.compareSync(req.body.password, User.password);
     if (status === true) {
         console.log('COUCOU');
@@ -104,6 +94,8 @@ const login = async(req, res) => {
     }
     return res.status(200).json({
         login: false,
+        message: 'Invalid password',
+        field: 'password',
     })
 }
 

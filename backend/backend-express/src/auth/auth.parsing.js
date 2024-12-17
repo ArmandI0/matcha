@@ -1,4 +1,4 @@
-import authController from "../controllers/authController/authController.js";
+import authController from "./auth.controllers.js"
 
 const checkData = {
     async validateEmail(email) {
@@ -10,7 +10,7 @@ const checkData = {
             message = 'Enter a mail adress';
         else if (emailRegex.test(email) === false)
             message = 'Invalid mail';
-        const checkEmail = await authController.registerController.checkIfEmailAlreadyExist(email);
+        const checkEmail = await authController.register.checkIfEmailAlreadyExist(email);
         if (checkEmail !== false)
             message = 'Email already used';
         if (message !== '')
@@ -67,7 +67,7 @@ const checkData = {
             message = 'Enter a username';
         else if (!usernameRegex.test(username))
             message = 'Invalid password. Your password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character.';
-        const checkDb = await authController.registerController.checkIfUsernameAlreadyExist(username);
+        const checkDb = await authController.register.checkIfUsernameAlreadyExist(username);
         if (checkDb !== false)
             message = 'Username already used';
         if (message !== '')

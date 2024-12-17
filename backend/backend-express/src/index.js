@@ -1,8 +1,8 @@
-import express from 'express';
-import routes from './routes/routing.js';
-import rtAuth from './routes/authRoute.js';
+import express from 'express'
+import routes from './routes/routing.js'
+import rtAuth from './auth/auth.routes.js';
 import cookieParser from 'cookie-parser';
-import jwtToken from './services/jwtAuthenticate.js';
+import jwtToken from './auth/auth.jwtFunctions.js';
 import { decode } from 'jsonwebtoken';
 import { Server } from 'socket.io'; 
 import { createServer } from 'http'; 
@@ -12,11 +12,15 @@ const PORT = process.env.PORT || 5000; // Définit un port par défaut
 
 // Convertie les JSON
 app.use(express.json());
-// Ajoute les cookies à req.cookies
-app.use(cookieParser());
+//Ajoute les cookies a req.cookies
+app.use(cookieParser())
 
-// Routes pour l'authentification et l'API
-app.use('/auth', rtAuth);
+try {
+  app.use('/auth', rtAuth);
+}
+catch (error) {
+  console.log('error :', error);
+}
 
 // function de test pour le backend
 // app.get('/test', function (req, res) {

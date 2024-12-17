@@ -1,17 +1,16 @@
-import errManagement from '../../../config/errorsManagement.js';
-import database from '../../../config/database.js'
-import queries from '../queries.js'
+import errManagement from '../config/errorsManagement.js';
+import database from '../config/database.js'
+import queries from './auth.queries.js'
 import bcrypt from 'bcrypt'
 import { v4 as uuidv4 } from 'uuid';
     
-const registerController = {
+const register = {
     async insertNewUser(form) {
         try {
             const id = uuidv4();
             const password = bcrypt.hashSync(form.password, 10);
             await database.query(queries.userManagement.setUser, [form.username, form.email, password, id]);
             await database.query(queries.userProfile.setName, [id, form.firstName, form.lastName]);
-            // const token = jwtToken.create({id: id, username: form.username});
             return true;
         }
         catch(error) {
@@ -43,5 +42,28 @@ const registerController = {
 
 }
 
+const login = {
+    async login(form) {
+        try {
+            console.log('FONCTION LOGIN');
+            console.log(form.username);
+            const dataUser = await database.query(queries.userManagement.getUserByUsername, [form.username]);
+            console.log(dataUser);
+            const user = await dataUser.rows[0];
+            console.log('user = ', user);
+            return user;
+        }
+        catch(error) {
+            console.log('LOGIN ERROR:');
+            throw errManagement.handleDatabaseError(error);
+        }
+    },
+}
 
-export default registerController;
+const authController = {
+    register,
+    login,
+}
+
+
+export default authController;
