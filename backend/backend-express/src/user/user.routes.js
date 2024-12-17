@@ -1,8 +1,8 @@
 import express from 'express';
-import auth from './auth.services.js';
+import user from './user.service';
 
 const rtUser = express.Router();
 
-rtUser.post('/register', auth.register);
+rtUser.post('/user-profile-status', user.checkIfProfileExist);
 
 export default rtUser;
