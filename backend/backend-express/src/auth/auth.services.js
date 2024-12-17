@@ -63,10 +63,6 @@ const login = async(req, res) => {
     console.log('request body from login function');
     console.log(req.body);
 
-    // const isValid = await validLoginForm(req.body);
-    // if (isValid != true) {
-    //     return res.status(200).json(isValid);
-    // }
     const User = await authController.login.login(req.body);
     if (!User) {
         return res.status(200).json({

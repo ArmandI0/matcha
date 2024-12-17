@@ -1,4 +1,7 @@
-import controller from "./user.controllers";
+import controller from "./user.controllers.js";
+import jwt from 'jsonwebtoken';
+
+
 
 async function checkIfProfileExist(req, res) {
     try {
@@ -17,10 +20,22 @@ async function checkIfProfileExist(req, res) {
     }
 }
 
-async function getId(req, res) {
-    
+async function getUserInfos(req, res) {
+    try {
+        const decoded = jwt.verify(req.cookies.authToken, process.env.JWT_KEY);
+        console.log('getUserInfos = ', decoded);
+        return res.status(200).json({
+            id: decoded.id,
+            username: decoded.username,
+        });
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(403);
+    }
 }
 
-export default user = {
+export const user = {
     checkIfProfileExist,
+    getUserInfos,
 };

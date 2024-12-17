@@ -1,6 +1,6 @@
-import queries from "./user.queries"
-import errManagement from "../config/errorsManagement"
-import database from "../config/database"
+import queries from "./user.queries.js"
+import errManagement from "../config/errorsManagement.js"
+import database from "../config/database.js"
 
 const profile = {
     async checkIfUserProfileExist(username) {
