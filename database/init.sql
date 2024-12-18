@@ -56,7 +56,7 @@ CREATE TABLE liked_profiles (
 );
 
 CREATE TABLE conversations (
-    id SERIAL PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user1_id UUID NOT NULL,
     user2_id UUID NOT NULL,
     messages JSONB DEFAULT '[]'::JSONB,  -- Pour stocker les messages en JSON
@@ -66,104 +66,15 @@ CREATE TABLE conversations (
     FOREIGN KEY (user2_id) REFERENCES users(id)
 );
 
--- Insertion des utilisateurs
-INSERT INTO users (username, email, password)
-VALUES
-('user1', 'user1@example.com', 'password1'),
-('armand', 'armand@example.com', 'password2'),
-('benoit', 'benoit@example.com', 'password3'),
-('baptiste', 'baptiste@example.com', 'password4'),
-('dorian', 'dorian@example.com', 'password5'),
-('lucas', 'lucas@example.com', 'password6');
+INSERT INTO "users" ("id", "username", "email", "password") VALUES
+('07541785-e362-458b-a400-322ba95d94a8',	'ehalliez',	'ehalliez@ehalliez.ehalliez',	'$2b$10$wQUEQHagPgfEQhCm44bXlOiewPMvbGq6F8ehgrQNFlwxIy1opfJri'),
+('6a7d28c7-7695-4d4c-a9e2-bbf35bf3cb82',	'aranger',	'aranger@aranger.aranger',	'$2b$10$IQ1dv2QMBZ60Lysk3WMBquTo.1hCSnZJaorAW8n4RxFYFgvavBsiG');
 
--- Insertion des intérêts
-INSERT INTO interests (interest_0, interest_1, interest_2, interest_3, interest_4)
-VALUES
-('Reading', 'Sports', 'Music', 'Gaming', 'Travel'),
-('Cooking', 'Movies', 'Photography', 'Technology', 'Music'),
-('Cooking', 'Movies', 'Photography', 'Technology', 'Music'),
-('Cooking', 'Movies', 'Photography', 'Technology', 'Music'),
-('Cooking', 'Movies', 'Photography', 'Technology', 'Music'),
-('Cooking', 'Movies', 'Photography', 'Technology', 'Music');
 
--- Insertion des photos
-INSERT INTO pictures (picture_0, picture_1, picture_2, picture_3, picture_4)
-VALUES
-('pic1.jpg', 'pic2.jpg', 'pic3.jpg', 'pic4.jpg', 'pic5.jpg'),
-('pic6.jpg', 'pic7.jpg', 'pic8.jpg', 'pic9.jpg', 'pic10.jpg'),
-('pic6.jpg', 'pic7.jpg', 'pic8.jpg', 'pic9.jpg', 'pic10.jpg'),
-('pic6.jpg', 'pic7.jpg', 'pic8.jpg', 'pic9.jpg', 'pic10.jpg'),
-('pic6.jpg', 'pic7.jpg', 'pic8.jpg', 'pic9.jpg', 'pic10.jpg'),
-('pic6.jpg', 'pic7.jpg', 'pic8.jpg', 'pic9.jpg', 'pic10.jpg');
+INSERT INTO "user_profiles" ("id", "user_id", "first_name", "last_name", "gender", "sexual_preferences", "biography", "interests_id", "pictures_id", "fame_rating", "location") VALUES
+('f2bc8d21-a60d-4b15-9864-b2f4e1e480d4',	'07541785-e362-458b-a400-322ba95d94a8',	'ehalliez',	'ehalliez',	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL),
+('78c2f3e9-84a7-472a-9a64-e7b41cea758f',	'6a7d28c7-7695-4d4c-a9e2-bbf35bf3cb82',	'aranger',	'aranger',	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL);
 
--- Insertion des profils utilisateurs
-INSERT INTO user_profiles (user_id, first_name, last_name, gender, sexual_preferences, biography, interests_id, pictures_id, fame_rating, location)
-VALUES
-((SELECT id FROM users WHERE username = 'user1'), 'John', 'Doe', 'Male', 'Hetero', 'Just a regular guy.', 
- (SELECT id FROM interests LIMIT 1), (SELECT id FROM pictures LIMIT 1), 5, 'New York'),
-((SELECT id FROM users WHERE username = 'armand'), 'Armand', 'Dupont', 'Male', 'Hetero', 'Lover of sports.', 
- (SELECT id FROM interests OFFSET 1 LIMIT 1), (SELECT id FROM pictures OFFSET 1 LIMIT 1), 4, 'Paris'),
-((SELECT id FROM users WHERE username = 'benoit'), 'Benoit', 'Martin', 'Male', 'Bi', 'Tech enthusiast.', 
- (SELECT id FROM interests OFFSET 2 LIMIT 1), (SELECT id FROM pictures OFFSET 2 LIMIT 1), 6, 'Lyon'),
-((SELECT id FROM users WHERE username = 'baptiste'), 'Baptiste', 'Bernard', 'Male', 'Hetero', 'Into gaming and movies.', 
- (SELECT id FROM interests OFFSET 3 LIMIT 1), (SELECT id FROM pictures OFFSET 3 LIMIT 1), 5, 'Marseille'),
-((SELECT id FROM users WHERE username = 'dorian'), 'Dorian', 'Lemoine', 'Male', 'Hetero', 'Music lover and traveler.', 
- (SELECT id FROM interests OFFSET 4 LIMIT 1), (SELECT id FROM pictures OFFSET 4 LIMIT 1), 7, 'Toulouse'),
- ((SELECT id FROM users WHERE username = 'lucas'), 'Lucas', 'Vasquez', 'Male', 'Hetero', 'Music lover and traveler.', 
- (SELECT id FROM interests OFFSET 5 LIMIT 1), (SELECT id FROM pictures OFFSET 5 LIMIT 1), 8, 'Madrid');
+INSERT INTO "conversations" ("id", "user1_id", "user2_id", "messages", "last_activity", "conversation_active") VALUES
+(gen_random_uuid(), '07541785-e362-458b-a400-322ba95d94a8',	'6a7d28c7-7695-4d4c-a9e2-bbf35bf3cb82',	'[{"sender": {"id": "07541785-e362-458b-a400-322ba95d94a8", "username": "ehalliez"}, "message": "Ce message vient de ehalliez", "sent_at": "2024-11-28T10:00:00Z"}, {"sender": {"id": "6a7d28c7-7695-4d4c-a9e2-bbf35bf3cb82", "username": "aranger"}, "message": "Ce message vient de aranger", "sent_at": "2024-11-28T10:05:00Z"}, {"sender": {"id": "07541785-e362-458b-a400-322ba95d94a8", "username": "ehalliez"}, "message": "test", "sent_at": "2024-12-18T15:12:00.227Z"}]',	'2024-12-18 15:12:00.227497',	't');
 
--- 1ère conversation avec "armand"
-INSERT INTO conversations (user1_id, user2_id, messages, last_activity)
-VALUES
-    (
-        (SELECT id FROM users WHERE username = 'user1'),
-        (SELECT id FROM users WHERE username = 'armand'),
-        '[{"sender": {"username": "user1", "id": "(SELECT id FROM users WHERE username = ''user1'')"}, "message": "Hey Armand, how are you?", "sent_at": "2024-11-28T10:00:00Z"},
-          {"sender": {"username": "armand", "id": "(SELECT id FROM users WHERE username = ''armand'')"}, "message": "Hi John, I am good! And you?", "sent_at": "2024-11-28T10:05:00Z"}]',
-        CURRENT_TIMESTAMP
-    );
-
--- 2ème conversation avec "benoit"
-INSERT INTO conversations (user1_id, user2_id, messages, last_activity)
-VALUES
-    (
-        (SELECT id FROM users WHERE username = 'user1'),
-        (SELECT id FROM users WHERE username = 'benoit'),
-        '[{"sender": {"username": "user1", "id": "(SELECT id FROM users WHERE username = ''user1'')"}, "message": "Hey Benoit, how is it going?", "sent_at": "2024-11-28T09:50:00Z"},
-          {"sender": {"username": "benoit", "id": "(SELECT id FROM users WHERE username = ''benoit'')"}, "message": "Good, just busy with tech stuff. You?", "sent_at": "2024-11-28T09:55:00Z"}]',
-        CURRENT_TIMESTAMP
-    );
-
--- 3ème conversation avec "baptiste"
-INSERT INTO conversations (user1_id, user2_id, messages, last_activity)
-VALUES
-    (
-        (SELECT id FROM users WHERE username = 'user1'),
-        (SELECT id FROM users WHERE username = 'baptiste'),
-        '[{"sender": {"username": "user1", "id": "(SELECT id FROM users WHERE username = ''user1'')"}, "message": "Hey Baptiste, how have you been?", "sent_at": "2024-11-28T09:30:00Z"},
-          {"sender": {"username": "baptiste", "id": "(SELECT id FROM users WHERE username = ''baptiste'')"}, "message": "Doing well, just gaming a lot lately. You?", "sent_at": "2024-11-28T09:35:00Z"}]',
-        CURRENT_TIMESTAMP
-    );
-
--- 4ème conversation avec "dorian"
-INSERT INTO conversations (user1_id, user2_id, messages, last_activity)
-VALUES
-    (
-        (SELECT id FROM users WHERE username = 'user1'),
-        (SELECT id FROM users WHERE username = 'dorian'),
-        '[{"sender": {"username": "user1", "id": "(SELECT id FROM users WHERE username = ''user1'')"}, "message": "Hey Dorian, what’s up?", "sent_at": "2024-11-28T09:10:00Z"},
-          {"sender": {"username": "dorian", "id": "(SELECT id FROM users WHERE username = ''dorian'')"}, "message": "Hey John, not much, just traveling! How about you?", "sent_at": "2024-11-28T09:15:00Z"}]',
-        CURRENT_TIMESTAMP
-    );
-
--- 5ème conversation avec un autre utilisateur aléatoire "lucas"
-INSERT INTO conversations (user1_id, user2_id, messages, last_activity)
-VALUES
-    (
-        (SELECT id FROM users WHERE username = 'user1'),
-        (SELECT id FROM users WHERE username = 'lucas'),
-        '[{"sender": {"username": "user1", "id": "(SELECT id FROM users WHERE username = ''user1'')"}, "message": "Hey Lucas, what’s new?", "sent_at": "2024-11-28T08:30:00Z"},
-          {"sender": {"username": "lucas", "id": "(SELECT id FROM users WHERE username = ''lucas'')"}, "message": "Just finished some work. How are you?", "sent_at": "2024-11-28T08:35:00Z"}]',
-        CURRENT_TIMESTAMP
-    );
-    
