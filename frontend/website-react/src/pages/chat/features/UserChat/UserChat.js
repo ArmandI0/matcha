@@ -81,6 +81,7 @@ function UserChat({ selectedUser }) {
     const handleSendMessage = async () => {
         if (newMessage.trim()) {
             const messageData = {
+                type: 'sendMessage',
                 message: {
                     sender: {
                         id: userInfo.id, username: userInfo.username // After authentification change the Hard code

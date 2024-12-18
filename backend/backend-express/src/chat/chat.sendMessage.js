@@ -95,4 +95,11 @@ const sendMessage = async (req, res) => {
     
 };
 
+export {
+    fetchConversation,
+    updateConversation,
+    insertConversation,
+    getNewMessage,
+};
+
 export default sendMessage;

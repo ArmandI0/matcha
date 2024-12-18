@@ -7,6 +7,7 @@ import jwtToken from './auth/auth.jwtFunctions.js';
 import { decode } from 'jsonwebtoken';
 import { Server } from 'socket.io'; 
 import { createServer } from 'http'; 
+import initializeSocket from './socket.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000; // Définit un port par défaut
@@ -41,30 +42,7 @@ catch (error) {
 const server = createServer(app);
 
 // Intègre Socket.IO avec le serveur HTTP existant
-const io = new Server(server, {
-  cors: {
-    origin: "http://localhost:3000", // URL de ton front-end
-    methods: ["GET", "POST"],
-  },
-});
-
-// Gestion des connexions Socket.IO
-io.on('connection', (socket) => {
-  console.log(`Nouvelle connexion : ${socket.id}`);
-
-  socket.on('message', (data) => {
-      console.log(`Message reçu :`, data);
-      io.emit('message', data);
-  });
-
-  socket.on('disconnect', () => {
-      console.log(`Déconnexion : ${socket.id}`);
-  });
-
-  socket.on('error', (err) => {
-      console.error(`Erreur Socket.IO : ${err.message}`);
-  });
-});
+initializeSocket(app, server);
 
 // Lance le serveur HTTP (Express + Socket.IO)
 server.listen(PORT, () => {
