@@ -1,5 +1,6 @@
-import database from '../../../config/database.js';
-import queries from '../queries.js'
+import database from '../config/database.js';
+import jwt from 'jsonwebtoken';
+import queries from './chat.queries.js'
 
 // ------------- Queries function -------------
 
@@ -62,7 +63,8 @@ const sendMessage = async (req, res) => {
         if (!message || !message.message || !receiverData || !receiverData.id|| !senderData || !senderData.id || !senderData.username) {
             return res.status(400).send('Bad request: missing data');
         }
-
+        const userId                    = jwt.verify(req.cookies.authToken, process.env.JWT_KEY).id;
+        senderData.id                   = userId;
         const conversation              = await fetchConversation(senderData.id, receiverData.id);
         const newMessage                = getNewMessage(senderData, message.message);
 

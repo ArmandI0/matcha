@@ -17,12 +17,11 @@ const formatDate = (date) => {
 
 function UsersList({ onUserClick }) {
     const [conversations, setConversations] = useState([]);
-    const currentUserId = '0d510e6b-0968-4ec3-9fa7-b7a1fa4e3d46';
 
     useEffect(() => {
         const fetchConversations = async () => {
             try {
-                const response = await fetch(`/api/chat/get-conversations-list/${currentUserId}`);
+                const response = await fetch(`/chat/get-conversations-list`);
                 const data = await response.json();
                 setConversations(data);
             } catch (error) {
@@ -31,7 +30,7 @@ function UsersList({ onUserClick }) {
         };
 
         fetchConversations();
-    }, [currentUserId]);
+    }, []);
 
     const handleCreateNewChat = (userId) => {
         console.log('Créer une nouvelle conversation avec:', userId);

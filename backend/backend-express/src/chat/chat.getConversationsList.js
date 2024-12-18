@@ -1,5 +1,6 @@
-import database from '../../../config/database.js';
-import queries from '../queries.js';
+import database from '../config/database.js';
+import jwt from 'jsonwebtoken';
+import queries from './chat.queries.js';
 
 // ------------- Queries function -------------
 
@@ -47,7 +48,10 @@ const getFormattedConversations = (userId, conversations) => {
 
 const getConversationsList = async (req, res) => {
     try {
-        const userId        = req.params.userId;
+        const userId = jwt.verify(req.cookies.authToken, process.env.JWT_KEY).id;
+        const jwtToken = jwt.verify(req.cookies.authToken, process.env.JWT_KEY);
+        console.log('jwtToken.id:', jwtToken.id);
+        console.log('userId:', userId);
         const conversations = getFormattedConversations(userId, await getAllConversations(userId));
         return res.status(200).json(conversations);
     } catch (error) {

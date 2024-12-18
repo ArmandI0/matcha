@@ -6,9 +6,29 @@ import './UserChat.css';
 function UserChat({ selectedUser }) {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
-    const currentUserId = '0d510e6b-0968-4ec3-9fa7-b7a1fa4e3d46'; // Hard code
     const [socket, setSocket] = useState(null);
+    const [userInfo, setUserInfo] = useState(null);
     const MAX_MESSAGE_LENGTH = 200; // Limite de caractères
+
+    useEffect(() => {
+        const fetchUserInfo = async () => {
+            try {
+                const response = await fetch('/user/get-user-infos');
+                if (response.ok) {
+                    const data = await response.json();
+                    setUserInfo(data);
+                    console.log('userInfo:', data);
+
+                } else {
+                    console.error('Erreur lors de la récupération des informations utilisateur');
+                }
+            } catch (error) {
+                console.error('Erreur de récupération des informations utilisateur:', error);
+            }
+        };
+
+        fetchUserInfo();
+    }, []);
 
     // Initialisation du socket
     useEffect(() => {
@@ -30,7 +50,7 @@ function UserChat({ selectedUser }) {
         const fetchMessages = async () => {
             if (selectedUser && selectedUser.user2_id) {
                 try {
-                    const response = await fetch(`/api/chat/recent-conversations/${currentUserId}/${selectedUser.user2_id}`);
+                    const response = await fetch(`/chat/recent-conversations/${selectedUser.user2_id}`);
                     if (response.ok) {
                         const data = await response.json();
                         console.log(data);
@@ -45,7 +65,7 @@ function UserChat({ selectedUser }) {
         };
 
         fetchMessages();
-    }, [selectedUser, currentUserId]);
+    }, [selectedUser]);
 
     // Écouter les messages reçus via Socket.IO
     useEffect(() => {
@@ -63,7 +83,7 @@ function UserChat({ selectedUser }) {
             const messageData = {
                 message: {
                     sender: {
-                        id: currentUserId, username: 'user1' // After authentification change the Hard code
+                        id: userInfo.id, username: userInfo.username // After authentification change the Hard code
                     },
                     message: newMessage,
                 },
@@ -78,7 +98,7 @@ function UserChat({ selectedUser }) {
 
                 // Mise à jour locale immédiate
                 setMessages((prevMessages) => [...prevMessages, {
-                    sender: { id: currentUserId, username: 'user1' },
+                    sender: { id: userInfo.id, username: userInfo.username },
                     message: newMessage,
                 }]);
 
@@ -102,7 +122,7 @@ function UserChat({ selectedUser }) {
             {selectedUser ? (
                 <>
                     <h2>Chat with {selectedUser.user2_first_name} {selectedUser.user2_last_name}</h2>
-                    <Message messages={messages} currentUserId={currentUserId} />
+                    <Message messages={messages} currentUserId={userInfo.id} />
                     <div className="message-input">
                         <input
                             type="text"

@@ -1,7 +1,7 @@
 import express from 'express'
-import routes from './routes/routing.js'
 import rtAuth from './auth/auth.routes.js';
 import rtUser from './user/user.routes.js';
+import rtChat from './chat/chat.routes.js';
 import cookieParser from 'cookie-parser';
 import jwtToken from './auth/auth.jwtFunctions.js';
 import { decode } from 'jsonwebtoken';
@@ -19,6 +19,7 @@ app.use(cookieParser())
 try {
   app.use('/auth', rtAuth);
   app.use('/user', rtUser);
+  app.use('/chat', rtChat);
 
 }
 catch (error) {
@@ -35,8 +36,6 @@ catch (error) {
 //   });
 // });
   
-// Routing
-app.use('/api', routes);
 
 // Crée le serveur HTTP
 const server = createServer(app);
