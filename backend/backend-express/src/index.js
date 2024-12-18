@@ -1,6 +1,7 @@
 import express from 'express'
 import routes from './routes/routing.js'
 import rtAuth from './auth/auth.routes.js';
+import rtUser from './user/user.routes.js';
 import cookieParser from 'cookie-parser';
 import jwtToken from './auth/auth.jwtFunctions.js';
 import { decode } from 'jsonwebtoken';
@@ -17,6 +18,8 @@ app.use(cookieParser())
 
 try {
   app.use('/auth', rtAuth);
+  app.use('/user', rtUser);
+
 }
 catch (error) {
   console.log('error :', error);
