@@ -3,9 +3,9 @@ import errManagement from "../config/errorsManagement.js"
 import database from "../config/database.js"
 
 const profile = {
-    async checkIfUserProfileExist(username) {
+    async checkIfUserProfileExist(userId) {
         try {
-            const res = await database.query(queries.userProfile.checkIfProfileExist, [username]);
+            const res = await database.query(queries.userProfile.checkIfProfileExist, [userId]);
             const ret = res.rows[0].exist;
             return ret;
 

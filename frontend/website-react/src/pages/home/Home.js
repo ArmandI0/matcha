@@ -8,7 +8,7 @@ function Home() {
     
     async function fetchTest() {
         try {
-            const response = await fetch('/user/get-user-infos', {
+            const response = await fetch('/user/user-profile-status', {
                 method: 'GET',
             });
             if (response.ok) {

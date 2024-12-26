@@ -2,21 +2,18 @@ import ValidateButton from "../../components/Button/ValidateButton";
 import ButtonLink from "../../components/Button/ButtonLink";
 import InputField from "../../components/InputField.js/InputField";
 import './style.css';
-import { useContext, useState } from "react";
-import checkData from "./validationFunction";
+import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import {AuthContext} from '../../context/AuthContext'
 
 export default function LoginForm() {
-    const { login } = useContext(AuthContext);
     const navigate = useNavigate();
   	const [formData, setFormData] = useState({
-  	  username: '',
-  	  password: '',
+  	  	username: '',
+  	  	password: '',
   	});
   	const [errors, setErrors] = useState({
-		username: '',
-		password: '',
+		  username: '',
+		  password: '',
   	});
 
 	const checkForm = async (e) => {
@@ -33,9 +30,7 @@ export default function LoginForm() {
         if (response.ok) {
             const res = await response.json();
             if (res.login === true) {
-              console.log('Login sucess');
               navigate('/home');
-              login(res); 
             }              
             else {
               setErrors({...errors, [res.field]: res.message});

@@ -1,36 +1,127 @@
-import { useContext, useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext';
-import IsAuthenticated from './IsAuthenticated';
+import { useEffect, useState } from 'react';
 
-export function ProtectedRoute({ children }) {
-    const { isAuthenticated , login, logout} = useContext(AuthContext);
-    const [authStatus, setAuthStatus] = useState(null);
+async function IsAuthenticated() {
+    try {
+        const response = await fetch('/auth/authenticated', {
+            method: 'GET',
+        });
+        if (response.ok) {
+            const res = await response.json();
+            console.log(res);
+            if (res.auth === true) {
+                return true
+            }
+            else {
+                return false
+            }
+        } else {
+            console.error('Erreur lors de l\'envoi du message');
+            return false;
+        }
+      } catch (error) {
+        console.error('Erreur lors de l\'envoi du message:', error);
+        return false;
+    }
+}
 
-    useEffect(() => {
-      const checkAuth = async () => {
-        console.log('appelle de checkauth dnas le frontend');
-        const status = await IsAuthenticated();
-        console.log('status =', status);
-        setAuthStatus(status);
-      };
-      checkAuth();
-    }, [isAuthenticated]);
-    
-    useEffect(() => {
-      if (authStatus === false) {
-        logout();
-      } else if (authStatus === true) {
-        login();
+async function ProfileIsComplete() {
+  try {
+      const response = await fetch('/user/user-profile-status', {
+          method: 'GET',
+      });
+      if (response.ok) {
+          const res = await response.json();
+          if (res.status === true) {
+            return true
+          }
+          else {
+              return false
+          }
+      } else {
+          console.error('Erreur lors de l\'envoi du message');
+          return false;
       }
-    }, [authStatus, login, logout]);
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi du message:', error);
+      return false;
+  }
+};
 
-    console.log('authstatus = ', authStatus);
-    if (authStatus === false) {
-      return <Navigate to="/login" />;
-    }
-    else if(authStatus === true) {
-      return children;
-    }
-    return
+export function AuthenticatedRoutes({ children }) {
+  const [isAuth, setIsAuth] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const status = await IsAuthenticated();
+        setIsAuth(status);
+      } finally {
+        setLoading(false);
+      }
+    };
+    checkAuth();
+  }, []);
+
+  if (loading) {
+    return null;
+  }
+
+  if (!isAuth) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
+}
+
+export function UnauthenticatedRoutes({ children }) {
+  const [isAuth, setIsAuth] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const status = await IsAuthenticated();
+        setIsAuth(status);
+      } finally {
+        setLoading(false);
+      }
+    };
+    checkAuth();
+  }, []);
+
+  if (loading) {
+    return null;
+  }
+
+  if (isAuth) {
+    return <Navigate to="/home" replace />;
+  }
+
+  return children;
+}
+
+export function IncompleteProfileRoutes({ children }) {
+  const [incompleteProfile, setIncompleteProfile] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const checkIfProfileIsIncomplete = async () => {
+      try {
+        const status = await ProfileIsComplete();
+        setIncompleteProfile(status);
+      } finally {
+        setLoading(false);
+      }
+    };
+    checkIfProfileIsIncomplete();
+  }, []);
+
+  if (loading) {
+    return null;
+  }
+  if (isAuth) {
+    return <Navigate to="/profileCompletion" replace />;
+  }
 }

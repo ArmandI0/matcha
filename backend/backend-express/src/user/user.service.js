@@ -5,7 +5,8 @@ import jwt from 'jsonwebtoken';
 
 async function checkIfProfileExist(req, res) {
     try {
-        const status = controller.checkIfProfileExist(req.body.username);
+        const decoded = jwt.verify(req.cookies.authToken, process.env.JWT_KEY);
+        const status = controller.profile.checkIfUserProfileExist(decoded.id);
         if (status === true) {
             return res.status(200).json({
                 status: true,
