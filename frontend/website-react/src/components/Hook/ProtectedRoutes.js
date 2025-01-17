@@ -1,5 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import completeProfile from '../../pages/home/CompleteProfile';
 
 async function IsAuthenticated() {
     try {
@@ -103,7 +104,7 @@ export function UnauthenticatedRoutes({ children }) {
 }
 
 export function IncompleteProfileRoutes({ children }) {
-  const [incompleteProfile, setIncompleteProfile] = useState(false);
+  const [profileComplited, setIncompleteProfile] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -121,7 +122,9 @@ export function IncompleteProfileRoutes({ children }) {
   if (loading) {
     return null;
   }
-  if (isAuth) {
-    return <Navigate to="/profileCompletion" replace />;
+  if (!profileComplited) {
+	console.log('profile uncomplited')
+	return <Navigate to="/complete_profile	" replace />;
   }
+  return children;
 }
