@@ -6,15 +6,25 @@ import InfosForm from "../../components/profile/InfosForm";
 import './Home.css'
 
 function CompleteProfile() {
+
+	const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log("Soumission des deux formulaires");
+    };
+
     return (
         <div className="basicPage">
 			<PrimarySearchAppBar></PrimarySearchAppBar>
-			<div className="page-container">
-				<h1> FAUT RENTRER LES INFOS </h1>
-				<InfosForm></InfosForm>
-				<InfosForm></InfosForm>
-				<AddressForm></AddressForm>
-			</div>
+			<form onSubmit={handleSubmit}>
+				<div className="page-container">
+					<InfosForm></InfosForm>
+					<AddressForm></AddressForm>
+					<ValidateButton
+					    name='Save preferences'
+						type="submit"
+					/>
+				</div>
+			</form>
 			<Footer></Footer>
 		</div>
 	)
