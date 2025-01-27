@@ -8,7 +8,9 @@ export function Login() {
     return (
       <div className="basicPage">
           <PrimarySearchAppBar />
-          <LoginForm />
+          <div className="pageContent">
+            <LoginForm />
+          </div>
           <Footer />
       </div>
     );
@@ -18,7 +20,9 @@ export function Register() {
     return (
       <div className="basicPage">
           <PrimarySearchAppBar />
-          <RegisterForm />
+          <div className="pageContent">
+            <RegisterForm />
+          </div>
           <Footer />
       </div>
     );

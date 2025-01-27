@@ -1,0 +1,15 @@
+
+.profileBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: fit-content; /* Au lieu de 50vh */
+    height: auto;
+    width: 100%;
+    align-content: center;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    background: #ffffffda;
+    padding: 2rem;
+    box-sizing: border-box;
+}

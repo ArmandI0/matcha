@@ -5,7 +5,6 @@ import '../styles.css'
 import ValidateButton from "../../components/Button/ValidateButton";
 
 function Home() {
-    
     async function fetchTest() {
         try {
             const response = await fetch('/user/user-profile-status', {
