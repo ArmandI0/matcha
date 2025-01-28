@@ -3,6 +3,7 @@ import Footer from "../../components/Footer/Footer";
 import AddressForm from "../../components/profile/AdressForm";
 import ValidateButton from "../../components/Button/ValidateButton";
 import InfosForm from "../../components/profile/InfosForm";
+import {Box, Typography} from '@mui/material';
 import './Home.css'
 
 function CompleteProfile() {
@@ -17,6 +18,14 @@ function CompleteProfile() {
 			<PrimarySearchAppBar></PrimarySearchAppBar>
 			<form onSubmit={handleSubmit}>
 				<div className="page-container">
+					<Box>
+						<Typography variant='h5' color='primary.main' gutterBottom>
+							Welcome! One Last Step...
+						</Typography>
+						<Typography variant='body1' color='text.secondary' marginBottom={2}>
+							To unlock all features and start meeting amazing people, please complete your profile first. It only takes a few minutes!
+						</Typography>
+					</Box>
 					<InfosForm></InfosForm>
 					<AddressForm></AddressForm>
 					<ValidateButton

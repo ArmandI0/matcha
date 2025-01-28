@@ -10,10 +10,16 @@ import {
   Notifications as NotificationsIcon, MoreVert as MoreIcon 
 } from '@mui/icons-material';
 
+
+
 const StyledAppBar = styled(AppBar)({
+  display: 'flex',
+  height: '8vh',
   backgroundColor: 'var(--background-transparent)',
   color: 'var(--primary-color)',
-  width: '100vw'
+  width: '100vw',
+  justifyContent: 'center',  // Centers items vertically
+
 });
 
 const BrandLink = styled(Link)({
@@ -104,7 +110,7 @@ export default function NavBar() {
           </StyledIconButton>
           
           <BrandLink to="/">
-            <BrandText>MATCHA</BrandText>
+            <Typography variant='h1' color='primary.main'>matcha</Typography>
           </BrandLink>
 
           <Box sx={{ flexGrow: 1 }} />

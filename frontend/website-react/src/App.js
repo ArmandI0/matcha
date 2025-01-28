@@ -5,6 +5,8 @@ import CompleteProfile from "./pages/home/CompleteProfile";
 import './App.css'
 import { AuthenticatedRoutes, UnauthenticatedRoutes, IncompleteProfileRoutes} from './components/Hook/ProtectedRoutes';
 import { Login, Register} from './pages/login/LoginPages';
+import { ThemeProvider } from '@mui/material/styles';
+import { theme } from './assets/theme';
 
 function UnauthRoutes() {
 	return (
@@ -33,22 +35,24 @@ function ProfileCompletion(){
 function App() {
   return (
 		<BrowserRouter>
-			<Routes>
-				{/* Route non authentifie */}
-				<Route element={<UnauthRoutes/>}>
-					<Route path="/login" element={<Login />} />
-					<Route path="/register" element={<Register />} />
-				</Route>
-				{/* Route authentifie */}
-				<Route element={<AuthRoutes/>}>
-					<Route element={<ProfileCompletion/>}>
-						<Route path="/home" element={<Home />} />
-						<Route path="/chat" element={<Chat />} />
-						<Route path="/" element={<Home />} />
+			<ThemeProvider theme={theme}>
+				<Routes>
+					{/* Route non authentifie */}
+					<Route element={<UnauthRoutes/>}>
+						<Route path="/login" element={<Login />} />
+						<Route path="/register" element={<Register />} />
 					</Route>
-					<Route path="/complete_profile" element={<CompleteProfile />} />
-				</Route>
-			</Routes>
+					{/* Route authentifie */}
+					<Route element={<AuthRoutes/>}>
+						<Route element={<ProfileCompletion/>}>
+							<Route path="/home" element={<Home />} />
+							<Route path="/chat" element={<Chat />} />
+							<Route path="/" element={<Home />} />
+						</Route>
+						<Route path="/complete_profile" element={<CompleteProfile />} />
+					</Route>
+				</Routes>
+			</ThemeProvider>
 		</BrowserRouter>
   );
 }	

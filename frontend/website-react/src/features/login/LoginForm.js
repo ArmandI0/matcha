@@ -4,6 +4,7 @@ import InputField from "../../components/InputField.js/InputField";
 import './style.css';
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { Typography } from "@mui/material";
 
 export default function LoginForm() {
     const navigate = useNavigate();
@@ -47,7 +48,7 @@ export default function LoginForm() {
 
    return (
       <div className="containerForm">
-        <h1 className="titleForm">Login</h1>
+        <Typography variant='h1' color='primary.main' marginBottom={2}>login</Typography>
         <form className="form" onSubmit={checkForm}>
           <InputField
             nameField="Username"

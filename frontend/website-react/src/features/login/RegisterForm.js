@@ -5,7 +5,7 @@ import './style.css';
 import { useState } from "react";
 import checkData from "./validationFunction";
 import { useNavigate } from 'react-router-dom';
-
+import { Typography } from "@mui/material";
 
 export default function RegisterForm() {
     const navigate = useNavigate();
@@ -86,7 +86,7 @@ export default function RegisterForm() {
 
    return (
       <div className="containerForm">
-        <h1 className="titleForm">Register</h1>
+        <Typography variant='h1' color='primary.main' marginBottom={2} >register</Typography>
         <form onSubmit={checkForm}>
           <InputField
             nameField="Username"

@@ -1,15 +1,11 @@
 .basicPage {
-    background-image: url('../assets/img/sun-woman-beautiful-dating-outdoors.jpg');
-    background-size: cover;
-    background-position: center;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+    background-image: linear-gradient(to bottom, #FFD6E5, #FFFFFF);
     width: 100vw;
     min-height: 100vh;
-    height: 100vh;
     width: 100vw;
+    justify-content: space-between;
 }
 
 .containerForm{
@@ -24,7 +20,7 @@
     align-items: center;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    background: #ffffffda;
+    background: #ffffff;
     max-width: 500px;
     padding: 2rem;
     margin: 1rem 2rem
@@ -35,7 +31,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    min-height: 92vh;
     gap: 2rem;
-    padding: 0 2rem;
+    padding: 2rem;
+    overflow-y: auto;
 }
