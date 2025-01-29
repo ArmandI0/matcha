@@ -1,17 +1,11 @@
 import * as React from 'react';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Typography from '@mui/material/Typography';
 import FormLabel from '@mui/material/FormLabel';
 import Grid from '@mui/material/Grid2';
-import OutlinedInput from '@mui/material/OutlinedInput';
 import { styled } from '@mui/material/styles';
-import TextField from '@mui/material/TextField';
-import ChipsArray from '../InputField.js/ChipsArray';
-import './Profile.css'
-
-import { StyledAutocomplete, StyledTextField, StyledOutlinedInput } from "../../components/InputField.js/FormField";
+import ChipsArray from '../../components/InputField.js/ChipsArray';
+import { StyledAutocomplete, StyledTextField} from "../../components/InputField.js/FormField";
 import { ProfileBox } from "../../components/Surface/Cards";
+import Typography from '@mui/material/Typography';
 
 
 const genderOptions = [
@@ -77,14 +71,12 @@ export default function InfosForm() {
 					/>
 				</FormGrid>
 				<FormGrid size={{ xs: 12 }}>
-					<FormLabel htmlFor="address1" required>
+					<FormLabel htmlFor="biography" required>
 						Biography
 					</FormLabel>
 					<StyledTextField
-						id="address1"
-						name="address1"
-						type="address1"
-						backgroundColor='background.default'
+						id="biography"
+						name="biography"
 						placeholder="Share your story, interests and what you're looking for..."						required
 						multiline
 						rows={4}

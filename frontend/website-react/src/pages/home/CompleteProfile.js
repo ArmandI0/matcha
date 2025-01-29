@@ -1,18 +1,21 @@
 import PrimarySearchAppBar from "../../features/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
-import AddressForm from "../../components/profile/AdressForm";
+import AddressForm from "../../features/Form/AdressForm";
 import ValidateButton from "../../components/Button/ValidateButton";
-import InfosForm from "../../components/profile/InfosForm";
+import InfosForm from "../../features/Form/InfosForm";
 import {Box, Typography} from '@mui/material';
 import { StyledBackground, PageContainer } from "../../components/Surface/Cards";
 
-import './Home.css'
-
 function CompleteProfile() {
+
+	const handleChange = (name, value) => {
+		console.log(name, value);
+	};
 
 	const handleSubmit = (event) => {
         event.preventDefault();
         console.log("Soumission des deux formulaires");
+		console.log(event);
     };
 
     return (
@@ -28,8 +31,8 @@ function CompleteProfile() {
 							To unlock all features and start meeting amazing people, please complete your profile first. It only takes a few minutes!
 						</Typography>
 					</Box>
-					<InfosForm></InfosForm>
-					<AddressForm></AddressForm>
+					<InfosForm onChange={handleChange} ></InfosForm>
+					<AddressForm onChange={handleChange}></AddressForm>
 					<ValidateButton
 					    name='Save preferences'
 						type="submit"

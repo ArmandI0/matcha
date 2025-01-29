@@ -1,8 +1,7 @@
 import PrimarySearchAppBar from "../../features/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
-import './Home.css';
-import '../styles.css'
 import ValidateButton from "../../components/Button/ValidateButton";
+import { StyledBackground } from "../../components/Surface/Cards";
 
 function Home() {
     async function fetchTest() {
@@ -25,7 +24,7 @@ function Home() {
     };
 
     return (
-        <div className="basicPage">
+        <StyledBackground>
             <PrimarySearchAppBar></PrimarySearchAppBar>
             <h1> C'est la super page HOME </h1> C'est la super page HOME
             <ValidateButton
@@ -33,7 +32,7 @@ function Home() {
             onClick={fetchTest}
             />
             <Footer></Footer>
-        </div>
+        </StyledBackground>
     );
 
 }

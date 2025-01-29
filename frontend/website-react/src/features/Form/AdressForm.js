@@ -1,18 +1,21 @@
 import * as React from 'react';
 import FormLabel from '@mui/material/FormLabel';
 import Grid from '@mui/material/Grid2';
-import OutlinedInput from '@mui/material/OutlinedInput';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { ProfileBox } from "../../components/Surface/Cards";
-import {StyledOutlinedInput, StyledTextField} from "../../components/InputField.js/FormField";
+import {StyledTextField} from "../../components/InputField.js/FormField";
 
 const FormGrid = styled(Grid)(() => ({
 	display: 'flex',
 	flexDirection: 'column',
 }));
 
-export default function AddressForm() {
+export default function AddressForm({onChange}) {
+	const handleChange = (event) => {
+		onChange(event.target.name, event.target.value);
+	};
+
 	return (
 	  <ProfileBox>
 		<Typography variant="h5" sx={{ mb: 1, display: 'flex', justifyContent: 'start', color: 'secondary.main'}}>
@@ -26,9 +29,9 @@ export default function AddressForm() {
 			<StyledTextField
 			  id="address1"
 			  name="address1"
-			  type="address1"
 			  placeholder="Street name and number"
 			  autoComplete="shipping address-line1"
+			  onChange={handleChange}
 			  required
 			  size="small"
 			/>
@@ -40,7 +43,6 @@ export default function AddressForm() {
 			<StyledTextField
 			  id="city"
 			  name="city"
-			  type="city"
 			  placeholder="New York"
 			  autoComplete="City"
 			  required
@@ -54,7 +56,6 @@ export default function AddressForm() {
 			<StyledTextField
 			  id="state"
 			  name="state"
-			  type="state"
 			  placeholder="NY"
 			  autoComplete="State"
 			  required
@@ -68,7 +69,6 @@ export default function AddressForm() {
 			<StyledTextField
 			  id="zip"
 			  name="zip"
-			  type="zip"
 			  placeholder="12345"
 			  autoComplete="shipping postal-code"
 			  required
@@ -82,7 +82,6 @@ export default function AddressForm() {
 			<StyledTextField
 			  id="country"
 			  name="country"
-			  type="country"
 			  placeholder="United States"
 			  autoComplete="shipping country"
 			  required

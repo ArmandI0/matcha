@@ -11,10 +11,10 @@ export const StyledAutocomplete = styled(Autocomplete)(({ theme }) => ({
 		transition: 'border-color 0.2s ease-in-out',
 	  },
 	  '&:hover fieldset': {
-		borderColor: theme.palette.primary.dark,  // Hover color
+		borderColor: theme.palette.primary.dark,
 	  },
 	  '&.Mui-focused fieldset': {
-		borderColor: theme.palette.primary.main,    // Focus color
+		borderColor: theme.palette.primary.main,
 	  }
 	},
 	'& .MuiInputLabel-root': {

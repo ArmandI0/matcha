@@ -43,28 +43,57 @@ export const theme = createTheme({
   // Vous pouvez aussi ajouter vos couleurs personnalisées
   palette: {
     primary: {
-      main: '#FF9F1C',      // Orange mandarine vif (au lieu de E67E22)
-      light: '#FFB649',     // (au lieu de F39C12)
-      dark: '#F78200',      // (au lieu de D35400)
+      main: '#FF6B6B',    // Corail électrique
+      light: '#FF8585',
+      dark: '#FF5252',
     },
     secondary: {
-      main: '#A12145',    // Bordeaux profond
-      light: '#B94B69',
-      dark: '#8A1534',
+      main: '#1A1818',    // Noir profond
+      light: '#232020',
+      dark: '#121010',
     },
     tertiary: {
-      main: '#FF4D4D',    // Orange-rouge vif
-      light: '#FF7070',
-      dark: '#E63333',
+      main: '#FF3366',    // Rose néon
+      light: '#FF5C85',
+      dark: '#E61E4D',
     },
     text: {
-      primary: '#011627',    // Bleu très foncé (au lieu de 2C3E50)
-      secondary: '#607D8B',  // Gris bleuté (au lieu de 7F8C8D)
+      primary: '#1A1818',    // Noir profond
+      secondary: '#666666',   // Gris moyen
     },
     background: {
-      default: '#f9f7f3',    // (au lieu de F5F6FA)
-      paper: '#FFFFFF',      // Inchangé
-      color: '#FFE5C4',
+      default: '#FFFFFF',     // Cards en blanc
+      paper: '#F8F8F8',      // Champs légèrement grisé
+      color: '#F4F4F4',      // Fond très légèrement grisé
     },
   },
 });
+
+
+// PALETTE DARK 
+// palette: {
+//   primary: {
+//     main: '#FF6B6B',    // Corail électrique
+//     light: '#FF8585',
+//     dark: '#FF5252',
+//   },
+//   secondary: {
+//     main: '#FFFFFF',    // Blanc pur
+//     light: '#FFFFFF',
+//     dark: '#F0F0F0',    // Très légèrement grisé pour le dark
+//   },
+//   tertiary: {
+//     main: '#FF3366',    // Rose néon
+//     light: '#FF5C85',
+//     dark: '#E61E4D',
+//   },
+//   text: {
+//     primary: '#FFFFFF',
+//     secondary: '#B3B3B3',
+//   },
+//   background: {
+//     default: '#1A1818',    // Cards
+//     paper: '#232020',      // Champs
+//     color: '#121010',      // Fond
+//   },
+// }

@@ -44,11 +44,11 @@ function App() {
 					</Route>
 					{/* Route authentifie */}
 					<Route element={<AuthRoutes/>}>
-						<Route element={<ProfileCompletion/>}>
+						{/* <Route element={<ProfileCompletion/>}> */}
 							<Route path="/home" element={<Home />} />
 							<Route path="/chat" element={<Chat />} />
 							<Route path="/" element={<Home />} />
-						</Route>
+						{/* </Route> */}
 						<Route path="/complete_profile" element={<CompleteProfile />} />
 					</Route>
 				</Routes>
