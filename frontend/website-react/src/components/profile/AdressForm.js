@@ -4,6 +4,8 @@ import Grid from '@mui/material/Grid2';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
+import { ProfileBox } from "../../components/Surface/Cards";
+import {StyledOutlinedInput, StyledTextField} from "../../components/InputField.js/FormField";
 
 const FormGrid = styled(Grid)(() => ({
 	display: 'flex',
@@ -12,16 +14,16 @@ const FormGrid = styled(Grid)(() => ({
 
 export default function AddressForm() {
 	return (
-	  <div className="profileBox">
-		<Typography variant="h5" sx={{ mb: 1, display: 'flex', justifyContent: 'start', color: 'rgba(254, 60, 114, 0.9)'}}>
-			Localisation
+	  <ProfileBox>
+		<Typography variant="h5" sx={{ mb: 1, display: 'flex', justifyContent: 'start', color: 'secondary.main'}}>
+			Location
 		</Typography>
 		<Grid container spacing={3}>
 		  <FormGrid size={{ xs: 12 , md: 12}}>
 			<FormLabel htmlFor="address1" required>
 			  Address line
 			</FormLabel>
-			<OutlinedInput
+			<StyledTextField
 			  id="address1"
 			  name="address1"
 			  type="address1"
@@ -35,7 +37,7 @@ export default function AddressForm() {
 			<FormLabel htmlFor="city" required>
 			  City
 			</FormLabel>
-			<OutlinedInput
+			<StyledTextField
 			  id="city"
 			  name="city"
 			  type="city"
@@ -49,7 +51,7 @@ export default function AddressForm() {
 			<FormLabel htmlFor="state" required>
 			  State
 			</FormLabel>
-			<OutlinedInput
+			<StyledTextField
 			  id="state"
 			  name="state"
 			  type="state"
@@ -63,7 +65,7 @@ export default function AddressForm() {
 			<FormLabel htmlFor="zip" required>
 			  Zip / Postal code
 			</FormLabel>
-			<OutlinedInput
+			<StyledTextField
 			  id="zip"
 			  name="zip"
 			  type="zip"
@@ -77,7 +79,7 @@ export default function AddressForm() {
 			<FormLabel htmlFor="country" required>
 			  Country
 			</FormLabel>
-			<OutlinedInput
+			<StyledTextField
 			  id="country"
 			  name="country"
 			  type="country"
@@ -88,6 +90,6 @@ export default function AddressForm() {
 			/>
 		  </FormGrid>
 		</Grid>
-	  </div>
+	  </ProfileBox>
 	);
   }

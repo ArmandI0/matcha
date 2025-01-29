@@ -3,27 +3,28 @@ import LoginForm from "../../features/login/LoginForm";
 import "../styles.css";
 import PrimarySearchAppBar from "../../features/NavBar/NavBar";
 import Footer from '../../components/Footer/Footer';
+import { StyledBackground, PageContainer } from "../../components/Surface/Cards";
 
 export function Login() {
     return (
-      <div className="basicPage">
+      <StyledBackground>
           <PrimarySearchAppBar />
-          <div className="pageContent">
+          <PageContainer>
             <LoginForm />
-          </div>
+          </PageContainer>
           <Footer />
-      </div>
+      </StyledBackground>
     );
 }
 
 export function Register() {
     return (
-      <div className="basicPage">
+      <StyledBackground>
           <PrimarySearchAppBar />
-          <div className="pageContent">
+          <PageContainer>
             <RegisterForm />
-          </div>
+          </PageContainer>
           <Footer />
-      </div>
+      </StyledBackground>
     );
 }

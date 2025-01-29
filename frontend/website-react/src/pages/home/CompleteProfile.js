@@ -4,6 +4,8 @@ import AddressForm from "../../components/profile/AdressForm";
 import ValidateButton from "../../components/Button/ValidateButton";
 import InfosForm from "../../components/profile/InfosForm";
 import {Box, Typography} from '@mui/material';
+import { StyledBackground, PageContainer } from "../../components/Surface/Cards";
+
 import './Home.css'
 
 function CompleteProfile() {
@@ -14,12 +16,12 @@ function CompleteProfile() {
     };
 
     return (
-        <div className="basicPage">
+        <StyledBackground>
 			<PrimarySearchAppBar></PrimarySearchAppBar>
 			<form onSubmit={handleSubmit}>
-				<div className="page-container">
+				<PageContainer>
 					<Box>
-						<Typography variant='h5' color='primary.main' gutterBottom>
+						<Typography variant='h5' color='secondary.main' gutterBottom>
 							Welcome! One Last Step...
 						</Typography>
 						<Typography variant='body1' color='text.secondary' marginBottom={2}>
@@ -32,10 +34,10 @@ function CompleteProfile() {
 					    name='Save preferences'
 						type="submit"
 					/>
-				</div>
+				</PageContainer>
 			</form>
 			<Footer></Footer>
-		</div>
+		</StyledBackground>
 	)
 }
 

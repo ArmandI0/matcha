@@ -1,12 +1,26 @@
 import Button from '@mui/material/Button';
+import { styled } from '@mui/material/styles';
 
-function ValidateButton(props){
-    
+const StyledButton = styled(Button)(({ theme }) => ({
+  backgroundColor: theme.palette.primary.main,
+  color: theme.palette.common.white,
+  marginBottom: theme.spacing(0.5),
+  marginTop: theme.spacing(2.5),
+  width: '25ch',
+  '&:hover': {
+    backgroundColor: theme.palette.primary.dark,
+  }
+}));
 
-  return(
-      <Button variant="contained" type={props.type} onClick={props.onClick} color="success" sx={{marginBottom: '5px' , marginTop: '20px', width: '25ch', backgroundColor: '#fe3c72'}}>
-          {props.name}
-      </Button>
+function ValidateButton(props) {
+  return (
+    <StyledButton 
+      variant="contained"
+      type={props.type}
+      onClick={props.onClick}
+    >
+      {props.name}
+    </StyledButton>
   );
 }
 

@@ -1,5 +1,37 @@
 import React from 'react';
 import { Paper, Chip, ListItem } from '@mui/material';
+import { styled } from '@mui/material/styles';
+
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  padding: theme.spacing(1),
+  margin: 0,
+  backgroundColor: theme.palette.background.default,
+  width: '100%',
+  boxSizing: 'border-box',
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: theme.spacing(0.5),
+  justifyContent: 'center',
+  boxShadow: 'none',
+}));
+
+const StyledListItem = styled(ListItem)({
+  padding: 0,
+  width: 'auto',
+  margin: 0,
+});
+
+const StyledChip = styled(Chip)(({ theme, selected }) => ({
+  backgroundColor: selected ? theme.palette.primary.main : theme.palette.background.paper,
+  color: selected ? theme.palette.common.white : theme.palette.text.secondary,
+  border: selected ? 'none' : `1px solid ${theme.palette.primary.light}`,
+  '&:hover': {
+    backgroundColor: selected ? theme.palette.primary.dark : theme.palette.background.paper,
+    borderColor: theme.palette.primary.dark,  // Add hover border color
+  }
+}));
+
+
 
 export default function ChipsArray() {
   const [chipData, setChipData] = React.useState([
@@ -60,49 +92,16 @@ export default function ChipsArray() {
   };
 
   return (
-    <Paper
-      sx={{
-        p: 1,
-        m: 0,
-        backgroundColor: 'transparent',
-        border: '1px solid rgba(0, 0, 0, 0.23)',
-        borderRadius: '4px',
-        width: '100%',
-        boxSizing: 'border-box',
-        display: 'flex', // Add flex display
-        flexWrap: 'wrap', // Allow wrapping
-        gap: 0.5, // Add consistent gap between chips
-        justifyContent: 'center',
-      }}
-      component="ul"
-    >
+    <StyledPaper component="ul">
       {chipData.map((data) => (
-        <ListItem 
-          key={data.key} 
-          sx={{ 
-            p: 0,
-            width: 'auto', // Allow natural width
-            margin: 0,
-          }}
-        >
-          <Chip
+        <StyledListItem key={data.key}>
+          <StyledChip
             label={data.label}
             onClick={() => handleClick(data)}
-            color={data.selected ? "primary" : "default"}
-            variant={data.selected ? "" : "outlined"}
-            sx={{
-              '&.MuiChip-colorPrimary': {
-                backgroundColor: 'rgba(254, 60, 114, 1)',
-                color: 'white',
-              },
-              '&.MuiChip-outlined': {
-                color: 'grey',
-              }
-            }}
-            clickable
+            selected={data.selected}
           />
-        </ListItem>
+        </StyledListItem>
       ))}
-    </Paper>
+    </StyledPaper>
   );
 }

@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+import { StyledTextField } from './FormField';
 
 function InputField(props) {
     return (
@@ -8,7 +8,7 @@ function InputField(props) {
           noValidate
           autoComplete="off"
         >
-          <TextField
+          <StyledTextField
             id="outlined-basic"
             label={props.nameField}
             type={props.type}

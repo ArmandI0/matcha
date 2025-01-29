@@ -5,6 +5,7 @@ import './style.css';
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Typography } from "@mui/material";
+import { StyledCard } from "../../components/Surface/Cards";
 
 export default function LoginForm() {
     const navigate = useNavigate();
@@ -47,7 +48,7 @@ export default function LoginForm() {
  };
 
    return (
-      <div className="containerForm">
+      <StyledCard>
         <Typography variant='h1' color='primary.main' marginBottom={2}>login</Typography>
         <form className="form" onSubmit={checkForm}>
           <InputField
@@ -70,6 +71,6 @@ export default function LoginForm() {
         </form>
         {/* rajouter une route  pour button link*/}
         <ButtonLink name="register" path="/register"></ButtonLink> 
-      </div>
+      </StyledCard>
     );
 }

@@ -12,15 +12,15 @@ import {
 
 
 
-const StyledAppBar = styled(AppBar)({
+const StyledAppBar = styled(AppBar)(({theme}) =>({
   display: 'flex',
   height: '8vh',
-  backgroundColor: 'var(--background-transparent)',
+  backgroundColor: theme.palette.background.default,
   color: 'var(--primary-color)',
   width: '100vw',
   justifyContent: 'center',  // Centers items vertically
 
-});
+}));
 
 const BrandLink = styled(Link)({
   textDecoration: 'none'
@@ -56,17 +56,18 @@ const StyledMenu = styled(Menu)({
   }
 });
 
-const StyledIconButton = styled(IconButton)({
+const StyledIconButton = styled(IconButton)(({theme}) =>({
   '& .MuiSvgIcon-root': {
-    color: 'var(--primary-color)'
+    color: theme.palette.secondary.main
   }
-});
+}));
 
-const StyledBadge = styled(Badge)({
+const StyledBadge = styled(Badge)(({theme}) =>({
   '& .MuiBadge-badge': {
-    backgroundColor: 'var(--secondary-color)'
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.common.white,
   }
-});
+}));
 
 export default function NavBar() {
   const navigate = useNavigate();

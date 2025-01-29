@@ -6,10 +6,13 @@ import FormLabel from '@mui/material/FormLabel';
 import Grid from '@mui/material/Grid2';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { styled } from '@mui/material/styles';
-import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import ChipsArray from './ChipsArray';
+import ChipsArray from '../InputField.js/ChipsArray';
 import './Profile.css'
+
+import { StyledAutocomplete, StyledTextField, StyledOutlinedInput } from "../../components/InputField.js/FormField";
+import { ProfileBox } from "../../components/Surface/Cards";
+
 
 const genderOptions = [
 	{ label: 'Male' },
@@ -29,8 +32,8 @@ const FormGrid = styled(Grid)(() => ({
 
 export default function InfosForm() {
 	return (
-		<div className="profileBox">
-				<Typography variant="h5" sx={{ mb: 1, display: 'flex', justifyContent: 'start', color: 'rgba(254, 60, 114, 0.9)'
+		<ProfileBox>
+				<Typography variant="h5" sx={{ mb: 1, display: 'flex', justifyContent: 'start', color: 'secondary.main'
 				}}>
 				Preferences
 				</Typography>
@@ -39,13 +42,13 @@ export default function InfosForm() {
 					<FormLabel htmlFor="Gender" required>
 						Gender
 					</FormLabel>
-					<Autocomplete
+					<StyledAutocomplete
 						disablePortal
 						id="Gender"
 						options={genderOptions}
 						size="small"
 						renderInput={(params) => (
-						<TextField 
+						<StyledTextField 
 							{...params} 
 							placeholder="Select gender"
 							required
@@ -58,13 +61,13 @@ export default function InfosForm() {
 					<FormLabel htmlFor="last-name" required>
 						Sexual preference
 					</FormLabel>
-					<Autocomplete
+					<StyledAutocomplete
 						disablePortal
 						id="Gender"
 						options={sexualPreferences}
 						size="small"
 						renderInput={(params) => (
-						<TextField 
+						<StyledTextField 
 							{...params} 
 							placeholder="Select sexual preference"
 							required
@@ -77,10 +80,11 @@ export default function InfosForm() {
 					<FormLabel htmlFor="address1" required>
 						Biography
 					</FormLabel>
-					<TextField
+					<StyledTextField
 						id="address1"
 						name="address1"
 						type="address1"
+						backgroundColor='background.default'
 						placeholder="Share your story, interests and what you're looking for..."						required
 						multiline
 						rows={4}
@@ -93,6 +97,6 @@ export default function InfosForm() {
 					<ChipsArray/>
 				</FormGrid>
 			</Grid>
-		</div>
+		</ProfileBox>
 	);
 }

@@ -43,18 +43,28 @@ export const theme = createTheme({
   // Vous pouvez aussi ajouter vos couleurs personnalisées
   palette: {
     primary: {
-      main: '#fe3c72', // Rose pour Matcha
-      light: '#FF69B4',
-      dark: '#C71585',
+      main: '#FF9F1C',      // Orange mandarine vif (au lieu de E67E22)
+      light: '#FFB649',     // (au lieu de F39C12)
+      dark: '#F78200',      // (au lieu de D35400)
     },
     secondary: {
-      main: '#4A90E2',
-      light: '#64B5F6',
-      dark: '#1976D2',
+      main: '#A12145',    // Bordeaux profond
+      light: '#B94B69',
+      dark: '#8A1534',
+    },
+    tertiary: {
+      main: '#FF4D4D',    // Orange-rouge vif
+      light: '#FF7070',
+      dark: '#E63333',
     },
     text: {
-      primary: '#333333',
-      secondary: '#666666',
+      primary: '#011627',    // Bleu très foncé (au lieu de 2C3E50)
+      secondary: '#607D8B',  // Gris bleuté (au lieu de 7F8C8D)
+    },
+    background: {
+      default: '#f9f7f3',    // (au lieu de F5F6FA)
+      paper: '#FFFFFF',      // Inchangé
+      color: '#FFE5C4',
     },
   },
 });

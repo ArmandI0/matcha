@@ -14,6 +14,7 @@ export default function ButtonLink({name, path}) {
       component="button"
       variant="body2"
       onClick={handleClick}
+      color='secondary.main'
     >
     {name}
     </Link>

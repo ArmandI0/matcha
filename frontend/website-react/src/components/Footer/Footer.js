@@ -8,7 +8,7 @@ export default function Footer() {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: { xs: 'center', sm: 'space-between' },
-            backgroundColor: 'white',
+            backgroundColor: 'background.default',
             p: 3,
             boxShadow: '0 -2px 10px rgba(0, 0, 0, 0.05)',
             marginTop: '0px',
@@ -42,7 +42,7 @@ export default function Footer() {
 
             {/* À propos */}
             <Box >
-                <Typography variant='h5' color='primary.main' gutterBottom>
+                <Typography variant='h5' color='secondary.main' gutterBottom>
                     À propos de nous
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
@@ -52,7 +52,7 @@ export default function Footer() {
 
             {/* Liens utiles */}
             <Box>
-                <Typography variant='h5' color='primary.main' gutterBottom>
+                <Typography variant='h5' color='secondary.main' gutterBottom>
                     Contact 1
                 </Typography>
                 <Stack spacing={2}>
@@ -73,7 +73,7 @@ export default function Footer() {
 
             {/* Contact */}
             <Box>
-                <Typography variant='h5' color='primary.main' gutterBottom>
+                <Typography variant='h5' color='secondary.main' gutterBottom>
                     Contact 2
                 </Typography>
                 <Stack spacing={2}>
